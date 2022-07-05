@@ -89,7 +89,7 @@ export default {
         this.errors.required.message = 'Uzupełnij wszystkie pola'
         return false
       }
-      if(!this.user.password || !this.user.passwordRepeat || (this.user.passwordRepeat !== this.user.password) ){
+      if(this.user.passwordRepeat !== this.user.password){
         this.errors.repeatPassword.message = 'Hasła się różnią'
         return false
       }
