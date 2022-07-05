@@ -4,6 +4,41 @@
   </div>
 </template>
 
+<script>
+import {mapState} from 'vuex'
+
+export default {
+  name: 'App',
+  data(){
+    return {
+
+    }
+  },
+  computed: {
+    ...mapState(['user'])
+  },
+  methods: {
+
+  },
+  watch: {
+    user: {
+      handler(newValue, oldValue){
+        if(newValue.token !== oldValue.token){
+          this.$router.push({name:'home'})
+        }
+      },
+      deep: true
+    }
+  },
+  created(){
+
+  },
+  mounted(){
+
+  }
+}
+</script>
+
 <style lang="scss">
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "bootstrap-icons/font/bootstrap-icons.css";

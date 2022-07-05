@@ -29,6 +29,7 @@
                   <i class="bi bi-check fs-1"></i>
                 </button>
                 <h2 v-for="(error, key, i) in errors" :key="i" :data-test="i">{{error.message}}</h2>
+                <h4>Nie masz konta? <router-link :to="{name:'AuthRegisterView'}">Zarejestruj się</router-link></h4>
               </div>
             </div>
           </form>
