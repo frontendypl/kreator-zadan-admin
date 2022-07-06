@@ -4,26 +4,10 @@
 
       <h4 class="mb-3">Witaj, <b>{{ user.email }}</b>, stwórz pierwsze zadania !</h4>
 
-      <ListForm/>
+      <ExercisesListForm/>
 
 <!--      TODO zrobić komponent listy, przekazac do niego propsami-->
-      <div class="row justify-content-between border-bottom">
-        <div class="col-auto align-self-center fs-3">
-          <b>1. Geometria</b>
-        </div>
-        <div class="col-auto">
-          <!--    TODO      jako link do gry z tym kodem-->
-          <button class="btn btn-info text-light ms-2">
-            kod: 324df
-          </button>
-          <button class="btn btn-primary text-light ms-2">
-            edytuj
-          </button>
-          <button class="btn btn-danger text-light ms-2">
-            usuń
-          </button>
-        </div>
-      </div>
+      <ExercisesLists :exercisesLists="exercisesLists"/>
 <!--      TODO-->
 
 
@@ -33,18 +17,19 @@
 
 <script>
 import {mapState} from "vuex";
-import ListForm from "@/components/ListForm";
+import ExercisesListForm from "@/components/ExercisesListForm";
+import ExercisesLists from "@/components/ExercisesLists";
 
 export default {
   name: "HomeView",
-  components: {ListForm},
+  components: {ExercisesLists, ExercisesListForm},
   data(){
     return{
 
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'exercisesLists'])
   },
   methods: {
     handleForm(){
@@ -63,6 +48,6 @@ export default {
 <style lang="scss">
   body{
     background-image: none;
-    background-color: antiquewhite;
+    background-color: #0a58ca08;
   }
 </style>

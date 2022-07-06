@@ -23,7 +23,7 @@ export default {
     ...mapState(['user'])
   },
   methods: {
-    ...mapActions(['setUser', 'logOut'])
+    ...mapActions(['setUser', 'logOut', 'getExercisesLists'])
   },
   watch: {
     user: {
@@ -32,7 +32,10 @@ export default {
           if(newValue.token === ''){
             this.$router.push({name:'AuthLoginView'})
           }else{
-            this.$router.push({name:'home'})
+            if(this.$route.path === '/logowanie' || this.$route.path === '/rejestracja'){
+              this.$router.push({name:'home'})
+            }
+            this.getExercisesLists()
           }
         }
       },

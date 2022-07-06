@@ -37,6 +37,7 @@ export default {
     ...mapGetters(['apiUrl'])
   },
   methods: {
+    ...mapActions(['getExercisesLists']),
     async handleForm(){
 
       try{
@@ -47,6 +48,7 @@ export default {
               'Authorization': `Bearer ${this.user.token}`
               }}
         )
+        await this.getExercisesLists()
         //TODO: Skoro sie wykonało to zaciągnąć liste - Store
       }catch (e) {
         this.errors = {...e.response.data.errors}
