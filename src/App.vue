@@ -1,11 +1,16 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
+
+    <header>
+      <button @click="logOut">wyloguj</button>
+    </header>
+
     <router-view/>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 
 export default {
   name: 'App',
@@ -18,20 +23,27 @@ export default {
     ...mapState(['user'])
   },
   methods: {
-
+    ...mapActions(['setUser', 'logOut'])
   },
   watch: {
     user: {
       handler(newValue, oldValue){
         if(newValue.token !== oldValue.token){
-          this.$router.push({name:'home'})
+          if(newValue.token === ''){
+            this.$router.push({name:'AuthLoginView'})
+          }else{
+            this.$router.push({name:'home'})
+          }
         }
       },
       deep: true
     }
   },
   created(){
-
+    const userStored = localStorage.getItem('user')
+    if(userStored){
+      this.setUser(JSON.parse(userStored))
+    }
   },
   mounted(){
 

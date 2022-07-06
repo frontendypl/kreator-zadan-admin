@@ -19,11 +19,23 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, userData){
       state.user = {...state.user, ...userData}
+      localStorage.setItem('user', JSON.stringify(state.user))
+    },
+    logOut(state){
+      state.user = {
+        _id: '',
+        email: '',
+        token: '',
+      }
     }
   },
   actions: {
     setUser(context, userData){
       context.commit('setUser', userData)
+    },
+    logOut(context){
+      localStorage.removeItem('user')
+      context.commit('logOut')
     }
   },
   modules: {
