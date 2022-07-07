@@ -18,7 +18,9 @@
         <button class="btn btn-primary text-light ms-2">
           edytuj
         </button>
-        <button class="btn btn-danger text-light ms-2">
+        <button class="btn btn-danger text-light ms-2"
+          @click="deleteExercisesList(list._id)"
+        >
           usuń
         </button>
       </div>
@@ -27,7 +29,8 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapGetters, mapActions, mapState} from "vuex";
+import axios from "axios";
 
 export default {
   name: "ExercisesLists",
@@ -38,7 +41,25 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['frontUrl'])
+    ...mapState(['user']),
+    ...mapGetters(['frontUrl', 'apiUrl'])
+  },
+  methods: {
+    ...mapActions(['getExercisesLists']),
+
+   async deleteExercisesList(id){
+      try{
+        const response = await axios.delete(`${this.apiUrl}/lists/${id}`,
+            {headers: {
+                'Authorization': `Bearer ${this.user.token}`
+              }}
+        )
+        await this.getExercisesLists()
+      }catch (e){
+        console.log(e)
+      }
+
+    }
   }
 }
 </script>
