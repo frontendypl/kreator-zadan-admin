@@ -4,10 +4,10 @@
 
       <h4 class="mb-3">Witaj, <b>{{ user.email }}</b>, stwórz pierwsze zadania !</h4>
 
-      <ExercisesListForm/>
+      <ListFormComponent/>
 
 <!--      TODO zrobić komponent listy, przekazac do niego propsami-->
-      <ExercisesLists :exercisesLists="exercisesLists"/>
+      <ListsComponent :exercisesLists="exercisesLists"/>
 <!--      TODO-->
 
 
@@ -17,12 +17,12 @@
 
 <script>
 import {mapState} from "vuex";
-import ExercisesListForm from "@/components/ExercisesListForm";
-import ExercisesLists from "@/components/ExercisesLists";
+import ListFormComponent from "@/components/ListFormComponent";
+import ListsComponent from "@/components/ListsComponent";
 
 export default {
   name: "HomeView",
-  components: {ExercisesLists, ExercisesListForm},
+  components: {ListsComponent, ListFormComponent},
   data(){
     return{
 

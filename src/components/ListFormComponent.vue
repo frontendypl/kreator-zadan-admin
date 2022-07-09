@@ -1,10 +1,11 @@
 <template>
-  <div class="c-ListForm">
+  <div class="c-ListFormComponent">
     <form class="mb-4" @submit.prevent="handleForm">
 
       <div class="row g-1">
         <div class="col col-md-4">
           <input class="form-control fs-3 mb-2" placeholder="Nowa lista zadań" type="text"
+                 :class="{'border-danger':Object.keys(errors).length}"
                  v-model="listName"
           >
         </div>
@@ -13,7 +14,12 @@
             +
           </button>
         </div>
-        <h4 v-for="(error, key, i) in errors" :key="i">{{error.message}}</h4>
+        <h4 class="text-danger"
+            v-for="(error, key, i) in errors"
+            :key="i"
+        >
+          {{error.message}}
+        </h4>
       </div>
     </form>
   </div>
@@ -24,7 +30,7 @@ import {mapState, mapGetters, mapActions} from "vuex";
 import axios from "axios";
 
 export default {
-  name: 'ListForm',
+  name: 'ListFormComponent',
   data(){
     return {
       listName: '',
@@ -34,7 +40,7 @@ export default {
   },
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['apiUrl'])
+    ...mapGetters(['apiUrl']),
   },
   methods: {
     ...mapActions(['getExercisesLists']),
