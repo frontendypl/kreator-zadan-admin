@@ -5,6 +5,7 @@ import AuthRegisterView from '@/views/AuthRegisterView'
 import AuthLoginView from "@/views/AuthLoginView";
 import HomeView from "@/views/HomeView";
 import ListDetailsView from "@/views/ListDetailsView";
+import ExerciseCreateView from "@/views/ExerciseCreateView";
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/listy-zadan/:listId',
     name: 'ExerciseListView',
     component: ListDetailsView
+  },
+  {
+    path: '/listy-zadan/:listId/dodaj-zadanie',
+    name: 'ExerciseCreateView',
+    component: ExerciseCreateView
   }
 ]
 

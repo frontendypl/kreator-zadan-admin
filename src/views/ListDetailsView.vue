@@ -14,7 +14,11 @@
       <div class="row">
         <div class="col">
           <h3>Zadania</h3>
+          <router-link class="btn btn-success btn-lg" :to="{name: 'ExerciseCreateView'}">
+            Stwórz nowe zadanie
+          </router-link>
         </div>
+
         <div class="col">
           <PlayersListComponent :players="players" />
         </div>
