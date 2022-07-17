@@ -4,8 +4,8 @@ import VueRouter from 'vue-router'
 import AuthRegisterView from '@/views/AuthRegisterView'
 import AuthLoginView from "@/views/AuthLoginView";
 import HomeView from "@/views/HomeView";
-import ListDetailsView from "@/views/ListDetailsView";
-import ExerciseCreateView from "@/views/ExerciseCreateView";
+import ListDetailsView from "@/views/ListView";
+import ExerciseCreateView from "@/views/ExerciseView";
 
 Vue.use(VueRouter)
 

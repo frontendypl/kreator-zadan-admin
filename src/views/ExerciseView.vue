@@ -18,7 +18,7 @@
         </div>
 
         <div class="row mb-5">
-          <ExerciseImagesListComponent />
+          <ExerciseImagesListComponent :userImages="userImages"/>
         </div>
 
       </div>
@@ -26,8 +26,9 @@
 </template>
 
 <script>
-import ExerciseImageForm from "@/components/ExerciseImageFormComponent";
-import ExerciseImagesListComponent from "@/components/ExerciseImagesListComponent";
+import ExerciseImageForm from "@/components/ImageFormComponent";
+import ExerciseImagesListComponent from "@/components/ImagesComponent";
+import {mapGetters, mapState} from "vuex";
 /**
  * TODO:
  * - walidacja na froncie, ?vee-validate
@@ -37,6 +38,19 @@ import ExerciseImagesListComponent from "@/components/ExerciseImagesListComponen
 
 export default {
   name: "ExerciseCreateView",
-  components: {ExerciseImagesListComponent, ExerciseImageForm}
+  components: {ExerciseImagesListComponent, ExerciseImageForm},
+
+  data(){
+    return {
+      userImages: []
+    }
+  },
+  computed: {
+    ...mapState(['user','exercisesLists']),
+    ...mapGetters(['apiUrl','frontUrl']),
+  },
+  methods: {
+
+  }
 }
 </script>

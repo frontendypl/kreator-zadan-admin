@@ -31,7 +31,7 @@
 <script>
 import {mapState, mapGetters, mapActions} from "vuex";
 import axios from "axios";
-import PlayersListComponent from "@/components/PlayersList";
+import PlayersListComponent from "@/components/PlayersListComponent";
 import ListUpdateFormComponent from "@/components/ListUpdateFormComponent";
 
 //TODO get players and other data every few seconds ???
