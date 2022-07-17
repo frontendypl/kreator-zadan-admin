@@ -12,13 +12,13 @@
         </div>
         <div class="row my-3 justify-content-between">
           <div class="col-auto">
-            <ExerciseImageForm />
+            <ImageFormComponent />
           </div>
           <div class="col-auto">Preview</div>
         </div>
 
         <div class="row mb-5">
-          <ExerciseImagesListComponent :userImages="userImages"/>
+          <ImagesComponent :userImages="userImages"/>
         </div>
 
       </div>
@@ -26,9 +26,10 @@
 </template>
 
 <script>
-import ExerciseImageForm from "@/components/ImageFormComponent";
-import ExerciseImagesListComponent from "@/components/ImagesComponent";
+import ImageFormComponent from "@/components/ImageFormComponent";
+import ImagesComponent from "@/components/ImagesComponent";
 import {mapGetters, mapState} from "vuex";
+import axios from "axios";
 /**
  * TODO:
  * - walidacja na froncie, ?vee-validate
@@ -38,7 +39,7 @@ import {mapGetters, mapState} from "vuex";
 
 export default {
   name: "ExerciseCreateView",
-  components: {ExerciseImagesListComponent, ExerciseImageForm},
+  components: {ImageFormComponent, ImagesComponent},
 
   data(){
     return {
@@ -50,7 +51,24 @@ export default {
     ...mapGetters(['apiUrl','frontUrl']),
   },
   methods: {
-
+    async getImages(){
+      try{
+        const response = await axios.get(
+            `${this.apiUrl}/images`,
+            {
+              headers: {
+                'Authorization': `Bearer ${this.user.token}`
+              }
+            }
+        )
+        this.userImages = response.data
+      }catch (e) {
+        console.log(e)
+      }
+    }
+  },
+  created(){
+    this.getImages()
   }
 }
 </script>

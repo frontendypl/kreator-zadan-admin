@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'PlayersListComponent',
+  name: 'PlayersComponent',
   props: {
     players: {
       type: Array
