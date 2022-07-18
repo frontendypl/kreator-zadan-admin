@@ -16,7 +16,7 @@
             </button>
           </div>
           <div class="col">
-            <button class="btn btn-danger w-100">
+            <button class="btn btn-danger w-100" @click="deleteImage(image._id)">
               Usuń
             </button>
           </div>
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
   name: 'ImagesComponent',
   props: {
@@ -35,7 +37,9 @@ export default {
     }
   },
   methods: {
-
+    ...mapActions({
+      deleteImage: 'imageModule/deleteImage'
+    })
   }
 }
 </script>

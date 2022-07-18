@@ -30,6 +30,24 @@ export default {
                 console.log(e)
                 dispatch('setLoader', {images: false}, { root: true }) //TODO handle images loading error !!!
             }
+        },
+        async deleteImage({dispatch, rootGetters, rootState},id){
+
+            try{
+                dispatch('setLoader', {images: true}, { root: true })
+
+                const response = await axios.delete(
+                    `${rootGetters.apiUrl}/images/${id}`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${rootState.user.token}`
+                        }
+                    }
+                )
+                dispatch('getImages')
+            }catch (e) {
+                dispatch('getImages')
+            }
         }
     }
 }
