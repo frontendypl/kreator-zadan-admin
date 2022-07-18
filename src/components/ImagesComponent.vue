@@ -1,7 +1,7 @@
 <template>
-  <div class="c-ImagesComponent">
+  <div class="c-ImagesComponent border">
     <div class="row">
-      <div class="col-md-6 col-lg-3 mb-4" v-for="image in userImages" :key="image._id">
+      <div class="col-md-6 col-lg-3 mb-4 mt-4 d-flex justify-content-end flex-column" v-for="image in userImages" :key="image._id">
         <div class="row">
           <div class="col">
             <img :src="image.url" class="img-fluid" alt="" v-if="image.srcType === 'url' ">
@@ -43,3 +43,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .c-ImagesComponent {
+    max-height: 50vh;
+    overflow: auto;
+  }
+</style>
