@@ -14,6 +14,12 @@ export default new Vuex.Store({
     imageModule
   },
   state: {
+    loader: {
+      user: false,
+      list: false,
+      form: false,
+      images: false,
+    },
     user: {
       _id: '',
       email: '',
@@ -28,8 +34,18 @@ export default new Vuex.Store({
     frontUrl(){
       return location.href.indexOf('localhost') === -1? 'https://kreator-zadan.pl' : 'http://localhost:8080'
     },
+    loaderActive(state){
+      let isActive = false
+      for(const property in state.loader){
+        if(state.loader[property]===true) isActive = true
+      }
+      return isActive
+    }
   },
   mutations: {
+    setLoader(state, loaderStatus){
+      state.loader = {...state.loader, ...loaderStatus}
+    },
     setUser(state, userData){
       state.user = {...state.user, ...userData}
       localStorage.setItem('user', JSON.stringify(state.user))
@@ -46,6 +62,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    setLoader(context, loaderStatus){
+      context.commit('setLoader', loaderStatus)
+    },
     setUser(context, userData){
       context.commit('setUser', userData)
     },

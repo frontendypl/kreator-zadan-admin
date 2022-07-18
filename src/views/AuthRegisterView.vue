@@ -73,7 +73,7 @@ export default {
     ...mapGetters(['apiUrl'])
   },
   methods: {
-    ...mapActions(['setUser']),
+    ...mapActions(['setUser','setLoader']),
     /**
      *
      */
@@ -104,11 +104,14 @@ export default {
       if(!this.validation()) return false
 
       try{
+        this.setLoader({form: true})
         const response = await axios.post(`${this.apiUrl}/users`, this.user)
         this.setUser({...response.data.user, token: response.data.token})
+        this.setLoader({form: false})
       }catch (e) {
         console.log({e})
         this.errors = e.response.data.errors
+        this.setLoader({form: false})
       }
     }
   }

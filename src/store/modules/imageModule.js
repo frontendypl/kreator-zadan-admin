@@ -13,8 +13,9 @@ export default {
         }
     },
     actions: {
-        async getImages({commit, rootGetters, rootState}){
+        async getImages({commit, dispatch, rootGetters, rootState}){
             try{
+                dispatch('setLoader', {images: true}, { root: true })
                 const response = await axios.get(
                     `${rootGetters.apiUrl}/images`,
                     {
@@ -24,8 +25,10 @@ export default {
                     }
                 )
                 commit('getImages',response.data)
+                dispatch('setLoader', {images: false}, { root: true })
             }catch (e) {
                 console.log(e)
+                dispatch('setLoader', {images: false}, { root: true }) //TODO handle images loading error !!!
             }
         }
     }

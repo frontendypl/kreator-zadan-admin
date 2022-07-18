@@ -1,6 +1,8 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
 
+    <AppLoaderComponent v-if="loaderActive" />
+
     <header>
       <button @click="logOut">wyloguj</button>
     </header>
@@ -10,17 +12,20 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapGetters, mapState} from 'vuex'
+import AppLoaderComponent from "@/components/AppLoaderComponent";
 
 export default {
   name: 'App',
+  components: {AppLoaderComponent},
   data(){
     return {
 
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user']),
+    ...mapGetters(['loaderActive'])
   },
   methods: {
     ...mapActions(['setUser', 'logOut', 'getExercisesLists'])
