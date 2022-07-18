@@ -2,9 +2,17 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from "axios";
 
+/**
+ * import Modules
+ */
+import imageModule from "@/store/modules/imageModule";
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    imageModule
+  },
   state: {
     user: {
       _id: '',
@@ -58,7 +66,5 @@ export default new Vuex.Store({
         console.log(e)
       }
     }
-  },
-  modules: {
   }
 })

@@ -1,10 +1,26 @@
 <template>
   <div class="c-ImagesComponent">
     <div class="row">
-      <div class="col" v-for="image in userImages" :key="image._id">
-        <img :src="image.url" class="img-fluid" alt="" v-if="image.srcType === 'url' ">
-<!--        TODO podmieniać typ pliku, zapisywać mime w bazie-->
-        <img :src="`data:${image.mimetype};base64,${image.src}`" class="img-fluid" :alt="image.originalname" v-if="image.srcType === 'buffer' ">
+      <div class="col-md-6 col-lg-3 mb-4" v-for="image in userImages" :key="image._id">
+        <div class="row">
+          <div class="col">
+            <img :src="image.url" class="img-fluid" alt="" v-if="image.srcType === 'url' ">
+            <img :src="`data:${image.mimetype};base64,${image.src}`" class="img-fluid" :alt="image.originalname"
+                 v-if="image.srcType === 'buffer' ">
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col">
+            <button class="btn btn-success w-100">
+              Użyj
+            </button>
+          </div>
+          <div class="col">
+            <button class="btn btn-danger w-100">
+              Usuń
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

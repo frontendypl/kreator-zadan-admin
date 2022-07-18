@@ -28,8 +28,7 @@
 <script>
 import ImageFormComponent from "@/components/ImageFormComponent";
 import ImagesComponent from "@/components/ImagesComponent";
-import {mapGetters, mapState} from "vuex";
-import axios from "axios";
+import {mapGetters, mapState, mapActions} from "vuex";
 /**
  * TODO:
  * - walidacja na froncie, ?vee-validate
@@ -43,29 +42,21 @@ export default {
 
   data(){
     return {
-      userImages: []
+
     }
   },
   computed: {
-    ...mapState(['user','exercisesLists']),
+    ...mapState({
+      user: 'user',
+      exercisesLists: 'exercisesLists',
+      userImages: state => state.imageModule.userImages
+    }),
     ...mapGetters(['apiUrl','frontUrl']),
   },
   methods: {
-    async getImages(){
-      try{
-        const response = await axios.get(
-            `${this.apiUrl}/images`,
-            {
-              headers: {
-                'Authorization': `Bearer ${this.user.token}`
-              }
-            }
-        )
-        this.userImages = response.data
-      }catch (e) {
-        console.log(e)
-      }
-    }
+    ...mapActions({
+      getImages: 'imageModule/getImages'
+    })
   },
   created(){
     this.getImages()

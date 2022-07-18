@@ -35,7 +35,7 @@
 
 <script>
 import axios from "axios";
-import {mapGetters, mapState} from "vuex";
+import {mapGetters, mapState, mapActions} from "vuex";
 
 export default {
   name: 'ExerciseImageForm',
@@ -51,6 +51,9 @@ export default {
     ...mapGetters(['apiUrl','frontUrl']),
   },
   methods: {
+    ...mapActions({
+      getImages: 'imageModule/getImages'
+    }),
     handleUrlInput(e){
       this.errors = {}
       this.$refs.inputFile.value = ''
@@ -85,7 +88,7 @@ export default {
                 'Authorization': `Bearer ${this.user.token}`,
               }}
         )
-        console.log(response)
+        this.getImages()
       }catch (e) {
         console.log(e)
         this.errors = {...e.response.data.errors}
