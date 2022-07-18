@@ -52,7 +52,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getImages: 'imageModule/getImages'
+      getImages: 'imageModule/getImages',
+      setLoader: 'setLoader',
     }),
     handleUrlInput(e){
       this.errors = {}
@@ -79,6 +80,7 @@ export default {
       }
 
       try{
+        this.setLoader({form: true})
         const response = await axios.post(
             `${this.apiUrl}/images`,
             formData,
@@ -88,10 +90,12 @@ export default {
                 'Authorization': `Bearer ${this.user.token}`,
               }}
         )
+        this.setLoader({form: false})
         this.getImages()
       }catch (e) {
         console.log(e)
         this.errors = {...e.response.data.errors}
+        this.setLoader({form: false})
       }
 
     }
