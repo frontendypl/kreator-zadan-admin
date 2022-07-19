@@ -7,7 +7,10 @@
           </div>
           <div class="col-auto">
             <label>Nazwa</label>
-            <input class="w-100" type="text" placeholder="zadanie1">
+<!--       TODO     Use computed, v-model and get/set to change value, now is not correct-->
+            <input class="w-100" type="text" placeholder="zadanie1"
+              @change="function(e){setNewExerciseData({name: e.target.value})}"
+            >
           </div>
         </div>
         <div class="row my-3 justify-content-between">
@@ -18,7 +21,10 @@
         </div>
 
         <div class="row mb-5">
-          <ImagesComponent :userImages="userImages"/>
+          <ImagesComponent
+              :userImages="userImages"
+              :usedImageId="newExerciseData.imageId"
+              @selectImage="setNewExerciseData"/>
         </div>
 
       </div>
@@ -49,14 +55,16 @@ export default {
     ...mapState({
       user: 'user',
       exercisesLists: 'exercisesLists',
-      userImages: state => state.imageModule.userImages
+      userImages: state => state.imageModule.userImages,
+      newExerciseData: state => state.exerciseModule.newExerciseData
     }),
     ...mapGetters(['apiUrl','frontUrl']),
   },
   methods: {
     ...mapActions({
-      getImages: 'imageModule/getImages'
-    })
+      getImages: 'imageModule/getImages',
+      setNewExerciseData: 'exerciseModule/setNewExerciseData'
+    }),
   },
   created(){
     this.getImages()

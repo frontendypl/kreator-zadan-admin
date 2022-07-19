@@ -6,12 +6,13 @@ import axios from "axios";
  * import Modules
  */
 import imageModule from "@/store/modules/imageModule";
+import exerciseModule from "@/store/modules/exerciseModule";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    imageModule
+    imageModule, exerciseModule
   },
   state: {
     loader: {
