@@ -2,7 +2,7 @@
   <div class="c-ImagesComponent border">
     <div class="row">
       <div class="col-md-6 col-lg-3 mb-4 mt-4 d-flex justify-content-end flex-column"
-           :class="{activeImage: image._id === usedImageId}"
+           :class="{activeImage: image._id === usedImage._id}"
            v-for="image in userImages"
            :key="image._id"
       >
@@ -17,7 +17,7 @@
           <div class="col">
             <button class="btn btn-success w-100"
               @click="useImage(image._id)"
-              v-if="image._id !== usedImageId"
+              v-if="image._id !== usedImage._id"
             >
               Użyj
             </button>
@@ -30,7 +30,7 @@
           </div>
           <div class="col">
             <button class="btn btn-danger w-100" @click="deleteImage(image._id)"
-                    v-if="image._id !== usedImageId"
+                    v-if="image._id !== usedImage._id"
             >
               Usuń
             </button>
@@ -50,8 +50,9 @@ export default {
     userImages: {
       type: Array
     },
-    usedImageId: {
-      type: String
+    usedImage: {
+      type: Object,
+      default(){return {}}
     }
   },
   methods: {
