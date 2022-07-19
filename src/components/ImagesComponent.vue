@@ -29,7 +29,9 @@
             </button>
           </div>
           <div class="col">
-            <button class="btn btn-danger w-100" @click="deleteImage(image._id)">
+            <button class="btn btn-danger w-100" @click="deleteImage(image._id)"
+                    v-if="image._id !== usedImageId"
+            >
               Usuń
             </button>
           </div>
