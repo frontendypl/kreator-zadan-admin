@@ -54,6 +54,7 @@ export default {
     ...mapActions({
       getImages: 'imageModule/getImages',
       setLoader: 'setLoader',
+      setNewExerciseData: 'exerciseModule/setNewExerciseData'
     }),
     handleUrlInput(e){
       this.errors = {}
@@ -92,6 +93,8 @@ export default {
         )
         this.setLoader({form: false})
         this.getImages()
+        console.log({response})
+        this.setNewExerciseData({imageId: response.data._id})
       }catch (e) {
         console.log(e)
         this.errors = {...e.response.data.errors}
