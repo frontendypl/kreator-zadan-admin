@@ -1,7 +1,7 @@
 <template>
-  <div class="c-ImagesComponent border">
+  <div class="c-ImagesComponent">
     <div class="row">
-      <div class="col-md-6 col-lg-3 mb-4 mt-4 d-flex justify-content-end flex-column"
+      <div class="col-md-6 col-lg-3 d-flex justify-content-end flex-column"
            :class="{activeImage: image._id === usedImage._id}"
            v-for="image in userImages"
            :key="image._id"

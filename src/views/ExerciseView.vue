@@ -23,7 +23,11 @@
         </div>
 
         <div class="row mb-5">
+          <div class="col-12">
+            <h3 class="text-center fw-bold">Możesz wykorzystać użyte poprzednio obrazy:</h3>
+          </div>
           <ImagesComponent
+              class="mb-5 mt-5"
               :userImages="userImages"
               :usedImage="usedImage"
               @selectImage="setNewExerciseData"/>

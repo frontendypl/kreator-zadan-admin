@@ -5,28 +5,28 @@
     </div>
     <div class="col-12">
       <label for="fileInput" class="form-label visually-hidden" >Upolad obrazka.</label>
-      <input id="fileInput" class="form-control" type="file"
+      <input id="fileInput" class="form-control form-control-lg" type="file"
              :class="{'border-danger': errors.fileInput}"
              @change="handleInputFile" ref="inputFile"
       />
     </div>
-    <div class="col-12">
-      <p>lub</p>
+    <div class="col-12 my-4">
+      <h5>lub wklej link z internetu:</h5>
     </div>
-    <div class="col-12">
-      <label class="form-label">link:</label>
-      <input id="urlInput" class="form-control w-100" type="text" placeholder="https://www.obrazki.pl/1"
+    <div class="col-12 mb-3">
+      <label class="form-label visually-hidden">link:</label>
+      <input id="urlInput" class="form-control form-control-lg w-100" type="text" placeholder="https://www.obrazki.pl/1"
              :class="{'border-danger': errors.urlInput}"
              @change="handleUrlInput"
              v-model="imageUrl"
       >
     </div>
     <div class="col">
-      <button class="btn btn-danger">usuń</button>
-      <button class="btn btn-success" @click="handleForm">zatwierdź</button>
+      <button class="btn btn-lg btn-danger me-2">usuń</button>
+      <button class="btn btn-lg btn-success" @click="handleForm">zatwierdź</button>
     </div>
     <div class="col-12">
-      <h4 class="text-danger"
+      <h4 class="text-danger my-1"
           v-for="(error, key, i) in errors"
           :key="i"
       >
