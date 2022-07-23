@@ -61,7 +61,7 @@ export default {
     async getPlayers(){
       try{
         const response = await axios.get(
-            `${this.apiUrl}/lists/${this.listId}`,
+            `${this.apiUrl}/lists/${this.listId}/players`,
             {
               headers: {
                 'Authorization': `Bearer ${this.user.token}`
