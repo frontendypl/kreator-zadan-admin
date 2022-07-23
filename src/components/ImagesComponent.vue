@@ -1,8 +1,8 @@
 <template>
   <div class="c-ImagesComponent">
     <div class="row">
-      <div class="col-md-6 col-lg-3 d-flex justify-content-end flex-column"
-           :class="{activeImage: image._id === usedImage._id}"
+      <div class="col-md-6 col-lg-3 mb-5 d-flex justify-content-end flex-column"
+           :class="{activeImage: image._id === usedImage._id, 'visually-hidden': usedImage._id && (image._id !==usedImage._id) }"
            v-for="image in userImages"
            :key="image._id"
       >
@@ -25,7 +25,7 @@
                     @click="useImage('')"
                     v-else
             >
-              Odznacz
+              Użyj innego
             </button>
           </div>
           <div class="col">

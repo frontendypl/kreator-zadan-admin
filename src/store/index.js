@@ -33,7 +33,7 @@ export default new Vuex.Store({
       return location.href.indexOf('localhost') === -1? 'https://api.kreator-zadan.pl' : 'http://localhost:2000'
     },
     frontUrl(){
-      return location.href.indexOf('localhost') === -1? 'https://kreator-zadan.pl' : 'http://localhost:8080'
+      return location.href.indexOf('localhost') === -1? 'https://kreator-zadan.pl' : 'http://localhost:8081'
     },
     loaderActive(state){
       let isActive = false
