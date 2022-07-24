@@ -17,10 +17,13 @@
           <router-link class="btn btn-success btn-lg" :to="{name: 'ExerciseCreateView'}">
             Stwórz nowe zadanie
           </router-link>
+          <div class="col">
+            <ExercisesComponent :exercises="exercises" />
+          </div>
         </div>
 
         <div class="col">
-          <PlayersListComponent :players="players" />
+          <PlayersComponent :players="players" />
         </div>
       </div>
 
@@ -31,17 +34,19 @@
 <script>
 import {mapState, mapGetters, mapActions} from "vuex";
 import axios from "axios";
-import PlayersListComponent from "@/components/PlayersComponent";
+import PlayersComponent from "@/components/PlayersComponent";
+import ExercisesComponent from "@/components/ExercisesComponent";
 import ListUpdateFormComponent from "@/components/ListUpdateFormComponent";
 
 //TODO get players and other data every few seconds ???
 
 export default {
   name: 'ListDetailsView',
-  components: {ListUpdateFormComponent, PlayersListComponent},
+  components: {ListUpdateFormComponent, PlayersComponent, ExercisesComponent},
   data(){
     return {
-      players: []
+      players: [],
+      exercises: [],
     }
   },
   computed: {
@@ -72,13 +77,32 @@ export default {
       }catch (e) {
         console.log(e)
       }
+    },
+    /**
+     * get data by listId (players and exercises lists)
+     */
+    async getExercises(){
+      try{
+        const response = await axios.get(
+            `${this.apiUrl}/lists/${this.listId}/exercises`,
+            {
+              headers: {
+                'Authorization': `Bearer ${this.user.token}`
+              }
+            }
+        )
+        this.exercises = response.data
+      }catch (e) {
+        console.log(e)
+      }
     }
   },
   created(){
+    this.getPlayers()
+    this.getExercises()
 
   },
   mounted(){
-    this.getPlayers()
   }
 }
 </script>

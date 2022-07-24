@@ -1,5 +1,5 @@
 <template>
-  <div class="c-PlayersListComponent">
+  <div class="c-PlayersComponent">
     <h3>Uczniowie:</h3>
     <h5 v-for="(player, key, index) in players" :key="index">{{player.name}}</h5>
   </div>
