@@ -23,7 +23,7 @@
         </div>
 
         <div class="col">
-          <PlayersComponent :players="players" />
+          <PlayersComponent :players="players" @deletePlayer="deletePlayer"/>
         </div>
       </div>
 
@@ -45,6 +45,7 @@ export default {
   components: {ListUpdateFormComponent, PlayersComponent, ExercisesComponent},
   data(){
     return {
+      interval: null,
       players: [],
       exercises: [],
     }
@@ -95,6 +96,15 @@ export default {
       }catch (e) {
         console.log(e)
       }
+    },
+
+    async deletePlayer(id){
+      try{
+        const response = await axios.delete(`${this.apiUrl}/players/${id}`)
+        await this.getPlayers()
+      }catch (e) {
+        console.log(e)
+      }
     }
   },
   created(){
@@ -103,6 +113,12 @@ export default {
 
   },
   mounted(){
+    this.interval = setInterval(()=>{
+      this.getPlayers()
+    },5000)
+  },
+  beforeDestroy() {
+    clearInterval(this.interval)
   }
 }
 </script>

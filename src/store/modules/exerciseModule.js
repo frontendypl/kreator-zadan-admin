@@ -124,7 +124,7 @@ export default {
             // loadery ustawiać
             let exerciseData = {
                 list: state.newExerciseData.listId,
-                image: state.newExerciseData.imageId,
+                image: state.newExerciseData.imageId || null,
                 name: state.name,
                 content: state.content,
                 answers: state.answers
