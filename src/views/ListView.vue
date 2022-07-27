@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     /**
-     * get data by listId (players and exercises lists)
+     * get list of players
      */
     async getPlayers(){
       try{
@@ -80,7 +80,20 @@ export default {
       }
     },
     /**
-     * get data by listId (players and exercises lists)
+     *
+     * @param {string} id
+     * @return {Promise<void>}
+     */
+    async deletePlayer(id){
+      try{
+        const response = await axios.delete(`${this.apiUrl}/players/${id}`)
+        await this.getPlayers()
+      }catch (e) {
+        console.log(e)
+      }
+    },
+    /**
+     * get list of exercises
      */
     async getExercises(){
       try{
@@ -98,14 +111,7 @@ export default {
       }
     },
 
-    async deletePlayer(id){
-      try{
-        const response = await axios.delete(`${this.apiUrl}/players/${id}`)
-        await this.getPlayers()
-      }catch (e) {
-        console.log(e)
-      }
-    }
+
   },
   created(){
     this.getPlayers()
