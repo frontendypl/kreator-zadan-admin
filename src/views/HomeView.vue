@@ -4,7 +4,7 @@
 
       <h4 class="mb-3">Witaj, <b>{{ user.email }}</b>, stwórz pierwsze zadania !</h4>
 
-      <ListFormComponent/>
+      <ListFormComponent @setLoader="setLoader"/>
 
 <!--      TODO zrobić komponent listy, przekazac do niego propsami-->
       <ListsComponent :exercisesLists="exercisesLists"/>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapActions, mapState} from "vuex";
 import ListFormComponent from "@/components/ListFormComponent";
 import ListsComponent from "@/components/ListsComponent";
 
@@ -32,6 +32,7 @@ export default {
     ...mapState(['user', 'exercisesLists'])
   },
   methods: {
+    ...mapActions(['setLoader']),
     handleForm(){
 
     }

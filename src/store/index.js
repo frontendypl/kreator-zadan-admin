@@ -73,7 +73,8 @@ export default new Vuex.Store({
       localStorage.removeItem('user')
       context.commit('logOut')
     },
-    async getExercisesLists({state, commit, getters}){
+    async getExercisesLists({state, commit, getters, dispatch}){
+      dispatch('setLoader',{list: true})
       try{
         const response = await axios.get(
             `${getters.apiUrl}/lists`,
@@ -82,8 +83,10 @@ export default new Vuex.Store({
               }}
         )
         commit('getExercisesLists', response.data)
+        dispatch('setLoader',{list: false})
       }catch (e) {
         console.log(e)
+        dispatch('setLoader',{list: false})
       }
     }
   }

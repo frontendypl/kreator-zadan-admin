@@ -45,7 +45,7 @@ export default {
   methods: {
     ...mapActions(['getExercisesLists']),
     async handleForm(){
-
+      this.$emit('setLoader',{list: true})
       try{
         const response = await axios.post(
             `${this.apiUrl}/lists`,
@@ -55,9 +55,9 @@ export default {
               }}
         )
         await this.getExercisesLists()
-        //TODO: Skoro sie wykonało to zaciągnąć liste - Store
       }catch (e) {
         this.errors = {...e.response.data.errors}
+        this.$emit('setLoader',{list: false})
       }
     }
   },

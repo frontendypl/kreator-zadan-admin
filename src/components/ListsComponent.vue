@@ -52,9 +52,10 @@ export default {
     ...mapGetters(['frontUrl', 'apiUrl'])
   },
   methods: {
-    ...mapActions(['getExercisesLists']),
+    ...mapActions(['getExercisesLists', 'setLoader']),
 
    async deleteExercisesList(id){
+     this.setLoader({list: true})
       try{
         const response = await axios.delete(`${this.apiUrl}/lists/${id}`,
             {headers: {
@@ -64,6 +65,7 @@ export default {
         await this.getExercisesLists()
       }catch (e){
         console.log(e)
+        this.setLoader({list: false})
       }
 
     }

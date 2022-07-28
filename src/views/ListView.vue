@@ -26,6 +26,11 @@
           <PlayersComponent :players="players" @deletePlayer="deletePlayer"/>
         </div>
       </div>
+      <div class="row">
+        <div class="col-auto">
+          <AnswersComponent :answers="answers"/>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -37,17 +42,19 @@ import axios from "axios";
 import PlayersComponent from "@/components/PlayersComponent";
 import ExercisesComponent from "@/components/ExercisesComponent";
 import ListUpdateFormComponent from "@/components/ListUpdateFormComponent";
+import AnswersComponent from "@/components/AnswersComponent";
 
 //TODO get players and other data every few seconds ???
 
 export default {
   name: 'ListDetailsView',
-  components: {ListUpdateFormComponent, PlayersComponent, ExercisesComponent},
+  components: {AnswersComponent, ListUpdateFormComponent, PlayersComponent, ExercisesComponent},
   data(){
     return {
       interval: null,
       players: [],
       exercises: [],
+      answers: []
     }
   },
   computed: {
@@ -111,6 +118,14 @@ export default {
       }
     },
 
+    async getAnswers(){
+      try{
+        const response = await axios.get(`${this.apiUrl}/lists/${this.listId}/answers`)
+        this.answers = response.data
+      }catch (e) {
+
+      }
+    }
 
   },
   created(){
@@ -121,6 +136,7 @@ export default {
   mounted(){
     this.interval = setInterval(()=>{
       this.getPlayers()
+      this.getAnswers()
     },5000)
   },
   beforeDestroy() {

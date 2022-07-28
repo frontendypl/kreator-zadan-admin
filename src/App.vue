@@ -1,11 +1,9 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
 
-    <AppLoaderComponent v-if="loaderActive" />
+    <AppNavbarComponent @logOut="logOut" :user="user"/>
 
-    <header>
-      <button @click="logOut">wyloguj</button>
-    </header>
+    <AppLoaderComponent v-if="loaderActive" />
 
     <router-view/>
   </div>
@@ -14,10 +12,11 @@
 <script>
 import {mapActions, mapGetters, mapState} from 'vuex'
 import AppLoaderComponent from "@/components/AppLoaderComponent";
+import AppNavbarComponent from "@/components/AppNavbarComponent";
 
 export default {
   name: 'App',
-  components: {AppLoaderComponent},
+  components: {AppNavbarComponent, AppLoaderComponent},
   data(){
     return {
 
