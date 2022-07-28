@@ -4,9 +4,7 @@ export default {
     namespaced: true,
     state(){
         return {
-            errors: {
-
-            },
+            errors: {},
             newExerciseData: {
                 listId: '',
                 imageId: '',
@@ -79,9 +77,25 @@ export default {
             state.content = content
         },
 
-        saveExercise(state, {errors}) {
-            console.log({errors})
+        setErrors(state, errors) {
             state.errors = {...errors}
+        },
+
+        resetExerciseCreating(state) {
+            state.errors = {}
+            state.newExerciseData = {
+                listId: '',
+                imageId: '',
+            }
+            state.name = 'Nowe Zadanie',
+                state.content = '',
+                state.answers = [
+                    {
+                        id: Date.now(),
+                        text: '',
+                        isCorrect: false
+                    }
+                ]
         }
     },
 
@@ -141,10 +155,13 @@ export default {
                     }
                 )
             }catch (e) {
-                commit('saveExercise', {errors: e.response.data.errors })
+                commit('setErrors', e.response.data.errors)
             }
         },
 
+        resetExerciseCreating({commit}){
+            commit('resetExerciseCreating')
+        }
 
     }
 }

@@ -35,7 +35,7 @@
 
         <div class="row mb-5">
           <div class="col-12">
-            <ExerciseFormComponent />
+            <ExerciseFormComponent :errors="errors" />
           </div>
         </div>
 
@@ -77,6 +77,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      errors: state=> state.exerciseModule.errors
+    }),
     name:{
       get(){
         return this.exerciseName
@@ -104,12 +107,16 @@ export default {
       getImages: 'imageModule/getImages',
       setNewExerciseData: 'exerciseModule/setNewExerciseData',
       setName: 'exerciseModule/setName',
-      saveExercise: 'exerciseModule/saveExercise'
+      saveExercise: 'exerciseModule/saveExercise',
+      resetExerciseCreating: 'exerciseModule/resetExerciseCreating'
     }),
   },
   created(){
     this.getImages()
     this.setNewExerciseData({listId: this.$route.params.listId})
+  },
+  beforeDestroy() {
+    this.resetExerciseCreating()
   }
 }
 </script>
