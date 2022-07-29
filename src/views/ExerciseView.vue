@@ -108,7 +108,7 @@ export default {
       setNewExerciseData: 'exerciseModule/setNewExerciseData',
       setName: 'exerciseModule/setName',
       saveExercise: 'exerciseModule/saveExercise',
-      resetExerciseCreating: 'exerciseModule/resetExerciseCreating'
+      resetExercise: 'exerciseModule/resetExercise'
     }),
   },
   created(){
@@ -116,7 +116,7 @@ export default {
     this.setNewExerciseData({listId: this.$route.params.listId})
   },
   beforeDestroy() {
-    this.resetExerciseCreating()
+    this.resetExercise()
   }
 }
 </script>

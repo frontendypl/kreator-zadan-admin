@@ -7,12 +7,14 @@ import axios from "axios";
  */
 import imageModule from "@/store/modules/imageModule";
 import exerciseModule from "@/store/modules/exerciseModule";
+import playerModule from "@/store/modules/playerModule";
+import listModule from "@/store/modules/listModule";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    imageModule, exerciseModule
+    imageModule, exerciseModule, playerModule, listModule
   },
   state: {
     loader: {
@@ -20,6 +22,7 @@ export default new Vuex.Store({
       list: false,
       form: false,
       images: false,
+      deleteExercise: false,
     },
     user: {
       _id: '',

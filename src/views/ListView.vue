@@ -18,7 +18,7 @@
             Stwórz nowe zadanie
           </router-link>
           <div class="col">
-            <ExercisesComponent :exercises="exercises" />
+            <ExercisesComponent :exercises="exercises" @deleteExercise="deleteExercise" />
           </div>
         </div>
 
@@ -52,73 +52,34 @@ export default {
   data(){
     return {
       interval: null,
-      players: [],
-      exercises: [],
       answers: []
     }
   },
   computed: {
-    ...mapState(['user','exercisesLists']),
+    ...mapState({
+      user: state=>state.user,
+      exercisesLists: state=>state.exercisesLists,
+      listId: state=>state.listModule.listId,
+      exercises: state=>state.exerciseModule.exercises,
+      players: state=>state.playerModule.players
+      // answers
+    }),
     ...mapGetters(['apiUrl','frontUrl']),
-    listId(){
-      return this.$route.params['listId']
-    },
     activeList(){
       return this.exercisesLists.filter(list=>list._id === this.listId)[0]
     }
   },
   methods: {
-    /**
-     * get list of players
-     */
-    async getPlayers(){
-      try{
-        const response = await axios.get(
-            `${this.apiUrl}/lists/${this.listId}/players`,
-            {
-              headers: {
-                'Authorization': `Bearer ${this.user.token}`
-              }
-            }
-        )
-        this.players = response.data
-      }catch (e) {
-        console.log(e)
-      }
-    },
-    /**
-     *
-     * @param {string} id
-     * @return {Promise<void>}
-     */
-    async deletePlayer(id){
-      try{
-        const response = await axios.delete(`${this.apiUrl}/players/${id}`)
-        await this.getPlayers()
-      }catch (e) {
-        console.log(e)
-      }
-    },
-    /**
-     * get list of exercises
-     */
-    async getExercises(){
-      try{
-        const response = await axios.get(
-            `${this.apiUrl}/lists/${this.listId}/exercises`,
-            {
-              headers: {
-                'Authorization': `Bearer ${this.user.token}`
-              }
-            }
-        )
-        this.exercises = response.data
-      }catch (e) {
-        console.log(e)
-      }
-    },
+    ...mapActions({
+      deleteExercise: 'exerciseModule/deleteExercise',
+      setListId: 'listModule/setListId',
+      getExercises: 'exerciseModule/getExercises',
+      getPlayers: 'playerModule/getPlayers',
+      deletePlayer: 'playerModule/deletePlayer',
 
-    async getAnswers(){
+    }),
+
+    async getAnswers(){ //przeniesc do answerModule
       try{
         const response = await axios.get(`${this.apiUrl}/lists/${this.listId}/answers`)
         this.answers = response.data
@@ -129,14 +90,15 @@ export default {
 
   },
   created(){
+    this.setListId(this.$route.params['listId'])
     this.getPlayers()
     this.getExercises()
 
   },
   mounted(){
     this.interval = setInterval(()=>{
-      this.getPlayers()
-      this.getAnswers()
+      // this.getPlayers()
+      // this.getAnswers()
     },5000)
   },
   beforeDestroy() {

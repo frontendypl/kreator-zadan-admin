@@ -1,9 +1,11 @@
 import axios from "axios";
+import router from "@/router";
 
 export default {
     namespaced: true,
     state(){
         return {
+            exercises: [],
             errors: {},
             newExerciseData: {
                 listId: '',
@@ -26,6 +28,9 @@ export default {
       }
     },
     mutations: {
+        getExercises(state, payload){
+          state.exercises = payload
+        },
         setNewExerciseData(state, payload){
             state.newExerciseData = {...state.newExerciseData, ...payload}
         },
@@ -81,22 +86,22 @@ export default {
             state.errors = {...errors}
         },
 
-        resetExerciseCreating(state) {
+        resetExercise(state) {
             state.errors = {}
             state.newExerciseData = {
                 listId: '',
                 imageId: '',
             }
-            state.name = 'Nowe Zadanie',
-                state.content = '',
-                state.answers = [
-                    {
-                        id: Date.now(),
-                        text: '',
-                        isCorrect: false
-                    }
-                ]
-        }
+            state.name = 'Nowe Zadanie'
+            state.content = ''
+            state.answers = [
+                {
+                    id: Date.now(),
+                    text: '',
+                    isCorrect: false
+                }
+            ]
+        },
     },
 
     actions: {
@@ -132,7 +137,7 @@ export default {
             commit('setContent', content)
         },
 
-        async saveExercise({commit,state,rootGetters,rootState }){
+        async saveExercise({commit,dispatch,state,rootGetters,rootState }){
             // wyświetlić błędy
             // zrobic przekierowanie lub komunikat z linkami "dodano pomyślnie, kliknij by dodać następne lub wróć do widoku listy"
             // loadery ustawiać
@@ -154,14 +159,44 @@ export default {
                         }
                     }
                 )
+                router.push({name: 'ExerciseListView', params: {listId: rootState.listModule.listId}})
+                dispatch('resetExercise')
             }catch (e) {
                 commit('setErrors', e.response.data.errors)
             }
         },
+        async deleteExercise({dispatch, rootState, rootGetters}, exerciseId){
+            dispatch('setLoader', {deleteExercise: true}, { root: true })
+            const response = await axios.delete(`${rootGetters.apiUrl}/exercises/${exerciseId}`,{
+                headers: {
+                    'Authorization': `Bearer ${rootState.user.token}`
+                }
+            })
+            dispatch('getExercises')
+            dispatch('setLoader', {deleteExercise: false}, { root: true })
+        },
+        resetExercise({commit}){
+            dispatch('setLoader', {deleteExercise: false}, { root: true })
+            commit('resetExercise')
+        },
 
-        resetExerciseCreating({commit}){
-            commit('resetExerciseCreating')
-        }
-
+        /**
+         * get list of exercises
+         */
+        async getExercises({state, commit,  rootGetters, rootState}){
+            try{
+                const response = await axios.get(
+                    `${rootGetters.apiUrl}/lists/${rootState.listModule.listId}/exercises`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${rootState.user.token}`
+                        }
+                    }
+                )
+                commit('getExercises', response.data)
+            }catch (e) {
+                console.log(e)
+            }
+        },
     }
 }
