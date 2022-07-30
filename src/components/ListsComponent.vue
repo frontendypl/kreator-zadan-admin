@@ -52,8 +52,10 @@ export default {
     ...mapGetters(['frontUrl', 'apiUrl'])
   },
   methods: {
-    ...mapActions(['getExercisesLists', 'setLoader']),
-
+    ...mapActions({
+      setLoader: 'setLoader',
+      getExercisesLists: 'listModule/getExercisesLists'
+    }),
    async deleteExercisesList(id){
      this.setLoader({list: true})
       try{

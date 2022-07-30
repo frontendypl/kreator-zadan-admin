@@ -23,11 +23,17 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState({
+      user: state => state.userModule.user
+    }),
     ...mapGetters(['loaderActive'])
   },
   methods: {
-    ...mapActions(['setUser', 'logOut', 'getExercisesLists'])
+    ...mapActions({
+          setUser: 'userModule/setUser',
+          logOut: 'userModule/logOut',
+          getExercisesLists: 'listModule/getExercisesLists'
+        })
   },
   watch: {
     user: {

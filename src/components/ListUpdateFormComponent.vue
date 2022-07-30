@@ -32,7 +32,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user','exercisesLists']),
+    ...mapState({
+      user: state => state.user,
+      exercisesLists: state=>state.listModule.exercisesLists
+    }),
     ...mapGetters(['apiUrl','frontUrl']),
     listId(){
       return this.$route.params['listId']
@@ -42,7 +45,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getExercisesLists']),
+    ...mapActions({
+      getExercisesLists: 'listModule/getExercisesLists'
+    }),
     /**
      * update List name, if success call store method getExercisesLists to get live data
      */

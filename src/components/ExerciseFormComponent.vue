@@ -22,7 +22,7 @@
         <div class="col-12 mb-2">
           <h4>Odpowiedzi</h4>
           <div class="input-group mb-3" v-for="(answer, index) in answers" :key="answer.id">
-            <div class="input-group-text">
+            <div class="input-group-text" title="Zaznacz jeśli to prawidłowa odpowiedź">
               <input
                   class="form-check-input mt-0"
                   :class="{'border-danger': errors.isOneCorrect}"
@@ -30,6 +30,7 @@
                   data-type="answerCheckbox"
                   @change="e=>setAnswer({id: answer.id, isCorrect: e.target.checked ? e.target.checked:false})"
                   :checked="answer.isCorrect"
+                  title="Zaznacz jeśli to prawidłowa odpowiedź"
               >
             </div>
             <input

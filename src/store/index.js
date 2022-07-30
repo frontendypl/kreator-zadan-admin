@@ -9,12 +9,13 @@ import imageModule from "@/store/modules/imageModule";
 import exerciseModule from "@/store/modules/exerciseModule";
 import playerModule from "@/store/modules/playerModule";
 import listModule from "@/store/modules/listModule";
+import userModule from "@/store/modules/userModule";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    imageModule, exerciseModule, playerModule, listModule
+    imageModule, exerciseModule, playerModule, listModule, userModule
   },
   state: {
     loader: {
@@ -24,12 +25,6 @@ export default new Vuex.Store({
       images: false,
       deleteExercise: false,
     },
-    user: {
-      _id: '',
-      email: '',
-      token: '',
-    },
-    exercisesLists: []
   },
   getters: {
     apiUrl(){
@@ -50,47 +45,10 @@ export default new Vuex.Store({
     setLoader(state, loaderStatus){
       state.loader = {...state.loader, ...loaderStatus}
     },
-    setUser(state, userData){
-      state.user = {...state.user, ...userData}
-      localStorage.setItem('user', JSON.stringify(state.user))
-    },
-    logOut(state){
-      state.user = {
-        _id: '',
-        email: '',
-        token: '',
-      }
-    },
-    getExercisesLists(state, exercisesLists){
-      state.exercisesLists = exercisesLists
-    }
   },
   actions: {
     setLoader(context, loaderStatus){
       context.commit('setLoader', loaderStatus)
     },
-    setUser(context, userData){
-      context.commit('setUser', userData)
-    },
-    logOut(context){
-      localStorage.removeItem('user')
-      context.commit('logOut')
-    },
-    async getExercisesLists({state, commit, getters, dispatch}){
-      dispatch('setLoader',{list: true})
-      try{
-        const response = await axios.get(
-            `${getters.apiUrl}/lists`,
-            {headers: {
-                'Authorization': `Bearer ${state.user.token}`
-              }}
-        )
-        commit('getExercisesLists', response.data)
-        dispatch('setLoader',{list: false})
-      }catch (e) {
-        console.log(e)
-        dispatch('setLoader',{list: false})
-      }
-    }
   }
 })

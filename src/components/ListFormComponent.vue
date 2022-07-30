@@ -43,7 +43,9 @@ export default {
     ...mapGetters(['apiUrl']),
   },
   methods: {
-    ...mapActions(['getExercisesLists']),
+    ...mapActions({
+      getExercisesLists: 'listModule/getExercisesLists'
+    }),
     async handleForm(){
       this.$emit('setLoader',{list: true})
       try{

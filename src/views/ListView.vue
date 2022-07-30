@@ -58,7 +58,7 @@ export default {
   computed: {
     ...mapState({
       user: state=>state.user,
-      exercisesLists: state=>state.exercisesLists,
+      exercisesLists: state=>state.listModule.exercisesLists,
       listId: state=>state.listModule.listId,
       exercises: state=>state.exerciseModule.exercises,
       players: state=>state.playerModule.players

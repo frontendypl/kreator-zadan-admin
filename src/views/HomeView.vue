@@ -29,7 +29,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user', 'exercisesLists'])
+    ...mapState({
+      user: state => state.user,
+      exercisesLists: state=>state.listModule.exercisesLists
+    })
   },
   methods: {
     ...mapActions(['setLoader']),
