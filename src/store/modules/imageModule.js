@@ -20,7 +20,7 @@ export default {
                     `${rootGetters.apiUrl}/images`,
                     {
                         headers: {
-                            'Authorization': `Bearer ${rootState.user.token}`
+                            'Authorization': `Bearer ${rootState.userModule.user.token}`
                         }
                     }
                 )
@@ -40,7 +40,7 @@ export default {
                     `${rootGetters.apiUrl}/images/${id}`,
                     {
                         headers: {
-                            'Authorization': `Bearer ${rootState.user.token}`
+                            'Authorization': `Bearer ${rootState.userModule.user.token}`
                         }
                     }
                 )

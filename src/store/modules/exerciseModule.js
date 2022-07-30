@@ -155,7 +155,7 @@ export default {
                     exerciseData,
                     {
                         headers: {
-                            'Authorization': `Bearer ${rootState.user.token}`
+                            'Authorization': `Bearer ${rootState.userModule.user.token}`
                         }
                     }
                 )
@@ -169,13 +169,13 @@ export default {
             dispatch('setLoader', {deleteExercise: true}, { root: true })
             const response = await axios.delete(`${rootGetters.apiUrl}/exercises/${exerciseId}`,{
                 headers: {
-                    'Authorization': `Bearer ${rootState.user.token}`
+                    'Authorization': `Bearer ${rootState.userModule.user.token}`
                 }
             })
             dispatch('getExercises')
             dispatch('setLoader', {deleteExercise: false}, { root: true })
         },
-        resetExercise({commit}){
+        resetExercise({commit, dispatch}){
             dispatch('setLoader', {deleteExercise: false}, { root: true })
             commit('resetExercise')
         },
@@ -189,7 +189,7 @@ export default {
                     `${rootGetters.apiUrl}/lists/${rootState.listModule.listId}/exercises`,
                     {
                         headers: {
-                            'Authorization': `Bearer ${rootState.user.token}`
+                            'Authorization': `Bearer ${rootState.userModule.user.token}`
                         }
                     }
                 )

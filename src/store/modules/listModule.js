@@ -27,7 +27,7 @@ export default {
                 const response = await axios.get(
                     `${rootGetters.apiUrl}/lists`,
                     {headers: {
-                            'Authorization': `Bearer ${rootState.user.token}`
+                            'Authorization': `Bearer ${rootState.userModule.user.token}`
                         }}
                 )
                 commit('getExercisesLists', response.data)

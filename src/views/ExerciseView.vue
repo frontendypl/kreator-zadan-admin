@@ -89,8 +89,8 @@ export default {
       }
     },
     ...mapState({
-      user: 'user',
-      exercisesLists: 'exercisesLists',
+      user: state => state.userModule.user,
+      exercisesLists: state => state.listModule.exercisesLists,
       userImages: state => state.imageModule.userImages,
       newExerciseData: state => state.exerciseModule.newExerciseData,
       exerciseName: state=> state.exerciseModule.name

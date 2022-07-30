@@ -39,7 +39,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState({
+      user: state => state.userModule.user,
+    }),
     ...mapGetters(['apiUrl']),
   },
   methods: {

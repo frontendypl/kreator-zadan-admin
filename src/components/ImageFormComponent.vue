@@ -50,7 +50,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user','exercisesLists']),
+    ...mapState({
+      user: state => state.userModule.user,
+      exercisesLists: state=>state.listModule.exercisesLists
+    }),
     ...mapGetters(['apiUrl','frontUrl']),
   },
   methods: {

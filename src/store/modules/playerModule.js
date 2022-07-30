@@ -24,7 +24,7 @@ export default {
                     `${rootGetters.apiUrl}/lists/${rootState.listModule.listId}/players`, //liste przeniesc do listModule
                     {
                         headers: {
-                            'Authorization': `Bearer ${rootState.user.token}`
+                            'Authorization': `Bearer ${rootState.userModule.user.token}`
                         }
                     }
                 )

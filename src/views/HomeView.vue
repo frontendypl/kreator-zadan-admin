@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     ...mapState({
-      user: state => state.user,
+      user: state => state.userModule.user,
       exercisesLists: state=>state.listModule.exercisesLists
     })
   },
