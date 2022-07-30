@@ -6,7 +6,10 @@ export default {
     state(){
         return {
             listId: '',
-            exercisesLists: []
+            exercisesLists: [],
+
+            newListName: '',
+            createNewExerciseListErrors: {}
         }
     },
     mutations: {
@@ -15,9 +18,28 @@ export default {
         },
         getExercisesLists(state, exercisesLists){
             state.exercisesLists = exercisesLists
+        },
+        setNewExerciseListErrors(state, payload){
+            state.createNewExerciseListErrors = {...payload}
+        },
+        /**
+         *
+         * @param state
+         * @param {string} name
+         */
+        setNewListName(state, name){
+            state.newListName = name
         }
     },
     actions: {
+        /**
+         *
+         * @param commit
+         * @param {string} name
+         */
+        setNewListName({commit}, name){
+            commit('setNewListName', name)
+        },
         /**
          * Set active list based on url :listId params. listId is used in requests
          * @param commit
@@ -56,6 +78,23 @@ export default {
                 dispatch('setLoader',{list: false}, {root: true})
             }
 
+        },
+        async createNewExerciseList({state, dispatch, commit, rootGetters, rootState}){
+            dispatch('setLoader',{list: true}, {root: true})
+            try{
+                const response = await axios.post(
+                    `${rootGetters.apiUrl}/lists`,
+                    {name: state.newListName},
+                    {headers: {
+                            'Authorization': `Bearer ${rootState.userModule.user.token}`
+                        }}
+                )
+                dispatch('getExercisesLists')
+                await router.push({name:'ExerciseListView',params: {listId: response.data._id}})
+            }catch (e) {
+                commit('setNewExerciseListErrors', e.response.data.errors)
+                dispatch('setLoader',{list: false}, {root: true})
+            }
         }
     },
 

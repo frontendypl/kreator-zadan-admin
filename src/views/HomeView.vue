@@ -4,7 +4,7 @@
 
       <h4 class="mb-3">Witaj, <b>{{ user.email }}</b>, stwórz pierwsze zadania !</h4>
 
-      <ListFormComponent @setLoader="setLoader"/>
+      <ListFormComponent />
 
 <!--      TODO zrobić komponent listy, przekazac do niego propsami-->
       <ListsComponent :exercisesLists="exercisesLists"/>
