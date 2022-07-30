@@ -15,8 +15,14 @@ export default {
                 email: '',
                 password: '',
             },
-            loginFormErrors: {}
+            loginFormErrors: {},
 
+            registerUserForm: {
+                email: '',
+                password: '',
+                repeatPassword: ''
+            },
+            registerFormErrors: {}
 
         }
     },
@@ -38,6 +44,13 @@ export default {
         },
         setLoginErrors(state, payload){
             state.loginFormErrors = {...payload}
+        },
+
+        setRegisterUserForm(state, payload){
+            state.registerUserForm = {...state.registerUserForm, ...payload}
+        },
+        setRegisterErrors(state, payload){
+            state.registerFormErrors = {...payload}
         }
     },
     actions: {
@@ -49,35 +62,15 @@ export default {
             context.commit('logOut')
         },
 
-
-
-        /**
-         *
-         */
         setLoginUserForm({commit}, payload){
             commit('setLoginUserForm', payload)
         },
-        setLoginErrors(state, payload){
-            state.loginErrors = {...payload}
+        setRegisterUserForm({commit}, payload){
+            commit('setRegisterUserForm', payload)
         },
-        // validation(){
-        //     this.errors = {
-        //         required: {
-        //             message: ''
-        //         }
-        //     }
-        //     if(!this.user.email || !this.user.password){
-        //         this.errors.required.message = 'Uzupełnij wszystkie pola'
-        //         return false
-        //     }
-        //
-        //     return true
-        // },
-        /**
-         *
-         */
-        async logIn({state, dispatch, commit, rootGetters}){
 
+
+        async logIn({state, dispatch, commit, rootGetters}){
             try{
                 dispatch('setLoader', {form: true}, { root: true })
                 const response = await axios.post(`${rootGetters.apiUrl}/users/login`, state.loginUserForm)
@@ -87,7 +80,18 @@ export default {
                 commit('setLoginErrors', e.response.data.errors)
                 dispatch('setLoader', {form: false}, { root: true })
             }
+        },
 
+        async registerUser({state, commit, dispatch, rootState, rootGetters}){
+            try{
+                dispatch('setLoader', {form: true}, { root: true })
+                const response = await axios.post(`${rootGetters.apiUrl}/users`, state.registerUserForm)
+                commit('setUser', {...response.data.user, token: response.data.token})
+                dispatch('setLoader', {form: false}, { root: true })
+            }catch (e) {
+                commit('setRegisterErrors', e.response.data.errors)
+                dispatch('setLoader', {form: false}, { root: true })
+            }
         }
     }
 }

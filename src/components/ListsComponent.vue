@@ -20,11 +20,11 @@
         >
           kod: {{list.shortCode}}
         </a>
-        <router-link class="btn btn-primary text-light ms-2"
-          :to="{name: 'ExerciseListView', params: {listId: list._id}}"
-        >
-          edytuj
-        </router-link>
+<!--        <router-link class="btn btn-primary text-light ms-2"-->
+<!--          :to="{name: 'ExerciseListView', params: {listId: list._id}}"-->
+<!--        >-->
+<!--          edytuj-->
+<!--        </router-link>-->
         <button class="btn btn-danger text-light ms-2"
           @click="deleteExercisesList(list._id)"
         >
