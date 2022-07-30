@@ -76,17 +76,8 @@ export default {
       getExercises: 'exerciseModule/getExercises',
       getPlayers: 'playerModule/getPlayers',
       deletePlayer: 'playerModule/deletePlayer',
-
+      getAnswers: 'answerModule/getAnswers'
     }),
-
-    async getAnswers(){ //przeniesc do answerModule
-      try{
-        const response = await axios.get(`${this.apiUrl}/lists/${this.listId}/answers`)
-        this.answers = response.data
-      }catch (e) {
-
-      }
-    }
 
   },
   created(){

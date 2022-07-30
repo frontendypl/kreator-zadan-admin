@@ -10,12 +10,13 @@ import exerciseModule from "@/store/modules/exerciseModule";
 import playerModule from "@/store/modules/playerModule";
 import listModule from "@/store/modules/listModule";
 import userModule from "@/store/modules/userModule";
+import answerModule from "@/store/modules/answerModule";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    imageModule, exerciseModule, playerModule, listModule, userModule
+    imageModule, exerciseModule, playerModule, listModule, userModule, answerModule
   },
   state: {
     loader: {

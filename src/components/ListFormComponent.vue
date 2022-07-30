@@ -28,6 +28,7 @@
 <script>
 import {mapState, mapGetters, mapActions} from "vuex";
 import axios from "axios";
+import router from "@/router";
 
 export default {
   name: 'ListFormComponent',
@@ -58,6 +59,7 @@ export default {
               'Authorization': `Bearer ${this.user.token}`
               }}
         )
+        await this.$router.push({name:'ExerciseListView',params: {listId: response.data._id}})
         await this.getExercisesLists()
       }catch (e) {
         this.errors = {...e.response.data.errors}
