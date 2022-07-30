@@ -51,28 +51,15 @@ export default {
     ...mapState({
       user: state => state.userModule.user,
     }),
-    ...mapGetters(['frontUrl', 'apiUrl'])
+    ...mapGetters(['frontUrl'])
   },
   methods: {
     ...mapActions({
       setLoader: 'setLoader',
-      getExercisesLists: 'listModule/getExercisesLists'
+      getExercisesLists: 'listModule/getExercisesLists',
+      deleteExercisesList: 'listModule/deleteExercisesList'
     }),
-   async deleteExercisesList(id){
-     this.setLoader({list: true})
-      try{
-        const response = await axios.delete(`${this.apiUrl}/lists/${id}`,
-            {headers: {
-                'Authorization': `Bearer ${this.user.token}`
-              }}
-        )
-        await this.getExercisesLists()
-      }catch (e){
-        console.log(e)
-        this.setLoader({list: false})
-      }
 
-    }
   }
 }
 </script>

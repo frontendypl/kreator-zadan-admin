@@ -110,47 +110,6 @@ export default {
       setRegisterUserForm: 'userModule/setRegisterUserForm',
       registerUser: 'userModule/registerUser',
     }),
-
-    /**
-     *
-     */
-    // validation(){
-    //   this.errors = {
-    //     required: {
-    //       message: ''
-    //     },
-    //     repeatPassword: {
-    //       message: ''
-    //     }
-    //   }
-    //   if(!this.user.email || !this.user.password || !this.user.passwordRepeat){
-    //     this.errors.required.message = 'Uzupełnij wszystkie pola'
-    //     return false
-    //   }
-    //   if(this.user.passwordRepeat !== this.user.password){
-    //     this.errors.repeatPassword.message = 'Hasła się różnią'
-    //     return false
-    //   }
-    //   return true
-    // },
-    /**
-     *
-     */
-    // async handleForm(){
-    //
-    //   if(!this.validation()) return false
-    //
-    //   try{
-    //     this.setLoader({form: true})
-    //     const response = await axios.post(`${this.apiUrl}/users`, this.user)
-    //     this.setUser({...response.data.user, token: response.data.token})
-    //     this.setLoader({form: false})
-    //   }catch (e) {
-    //     console.log({e})
-    //     this.errors = e.response.data.errors
-    //     this.setLoader({form: false})
-    //   }
-    // }
   }
 }
 </script>
