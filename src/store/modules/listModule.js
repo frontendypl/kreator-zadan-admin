@@ -9,8 +9,16 @@ export default {
             exercisesLists: [],
 
             newListName: '',
-            createNewExerciseListErrors: {}
+            createNewExerciseListErrors: {},
+
+            updateListName: '',
+            updateExerciseListErrors: {},
         }
+    },
+    getters: {
+      activeList(state){
+          return state.exercisesLists.find(list=>list._id === state.listId)
+      }
     },
     mutations: {
         setListId(state, listId) {
@@ -20,7 +28,7 @@ export default {
             state.exercisesLists = exercisesLists
         },
         setNewExerciseListErrors(state, payload){
-            state.createNewExerciseListErrors = {...payload}
+            state.updateExerciseListErrors = {...payload}
         },
         /**
          *
@@ -29,7 +37,14 @@ export default {
          */
         setNewListName(state, name){
             state.newListName = name
-        }
+        },
+        setUpdateListName(state, newName){
+            state.updateListName = newName
+        },
+        setUpdateExerciseListErrors(state, payload){
+            state.updateExerciseListErrors = {...payload}
+        },
+
     },
     actions: {
         /**
@@ -39,6 +54,9 @@ export default {
          */
         setNewListName({commit}, name){
             commit('setNewListName', name)
+        },
+        setUpdateListName({commit}, newName){
+            commit('setUpdateListName', newName)
         },
         /**
          * Set active list based on url :listId params. listId is used in requests
@@ -95,7 +113,23 @@ export default {
                 commit('setNewExerciseListErrors', e.response.data.errors)
                 dispatch('setLoader',{list: false}, {root: true})
             }
-        }
+        },
+        async updateListName({state, commit, dispatch, rootGetters, rootState}){
+            dispatch('setLoader',{list: true}, {root: true})
+            try{
+                const response = await axios.patch(
+                    `${rootGetters.apiUrl}/lists/${state.listId}`,
+                    {name: state.updateListName},
+                    {headers: {
+                            'Authorization': `Bearer ${rootState.userModule.user.token}`
+                        }}
+                )
+                dispatch('getExercisesLists')
+            }catch (e) {
+                commit('setUpdateExerciseListErrors', e.response.data.errors)
+                dispatch('setLoader',{list: false}, {root: true})
+            }
+        },
     },
 
 }

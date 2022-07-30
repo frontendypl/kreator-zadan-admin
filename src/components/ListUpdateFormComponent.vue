@@ -1,19 +1,20 @@
 <template>
   <div class="c-ListUpdateFormComponent">
-    <form class="mb-4" @submit.prevent="handleFormRenameList">
+    <form class="mb-4" @submit.prevent="updateListName">
 
       <div class="row g-1">
         <div class="col">
           <input class="form-control fs-3 mb-2" placeholder="Nazwa np: zwierzęta" type="text"
+                 :class="{'border-danger border-3': updateExerciseListErrors.name}"
                  v-model="listName"
           >
         </div>
         <div class="col-auto">
-          <button class="btn btn-primary text-light fs-3">
+          <button class="btn btn-primary text-light fs-3 border-3">
             zmień nazwę
           </button>
         </div>
-        <h4 v-for="(error, key, i) in errors" :key="i">{{error.message}}</h4>
+        <h4 class="text-danger" v-for="(error, key, i) in updateExerciseListErrors" :key="i">{{error.message}}</h4>
       </div>
     </form>
   </div>
@@ -21,53 +22,36 @@
 
 <script>
 import {mapActions, mapGetters, mapState} from "vuex";
-import axios from "axios";
 
 export default {
   name: 'ListUpdateNameComponent',
   data(){
-    return {
-      listName: '',
-      errors: {},
-    }
+    return {}
   },
   computed: {
     ...mapState({
-      user: state => state.user,
-      exercisesLists: state=>state.listModule.exercisesLists
+      updateExerciseListErrors: state=>state.listModule.updateExerciseListErrors
     }),
-    ...mapGetters(['apiUrl','frontUrl']),
-    listId(){
-      return this.$route.params['listId']
-    },
-    activeList(){
-      return this.exercisesLists.filter(list=>list._id === this.listId)[0]
+    ...mapGetters({
+      activeList: 'listModule/activeList'
+    }),
+    listName: {
+      get(){
+        return this.$store.state.listModule.updateListName
+      },
+      set(val){
+        this.setUpdateListName(val)
+      }
     }
   },
   methods: {
     ...mapActions({
-      getExercisesLists: 'listModule/getExercisesLists'
+      updateListName: 'listModule/updateListName',
+      setUpdateListName: 'listModule/setUpdateListName'
     }),
-    /**
-     * update List name, if success call store method getExercisesLists to get live data
-     */
-    async handleFormRenameList(){
-      try{
-        const response = await axios.patch(
-            `${this.apiUrl}/lists/${this.listId}`,
-            {name: this.listName},
-            {headers: {
-                'Authorization': `Bearer ${this.user.token}`
-              }}
-        )
-        await this.getExercisesLists()
-      }catch (e) {
-        this.errors = {...e.response.data.errors}
-      }
-    },
   },
   created(){
-    this.listName = this.activeList.name
+    this.setUpdateListName(this.activeList.name)
   }
 }
 </script>
