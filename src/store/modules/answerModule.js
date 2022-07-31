@@ -10,7 +10,7 @@ export default {
     },
     mutations: {
         getAnswers(state, payload){
-            state.answers = payload
+            state.answers = [...payload]
         }
     },
     actions: {

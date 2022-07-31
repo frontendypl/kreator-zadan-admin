@@ -112,7 +112,7 @@ export default {
     }),
   },
   created(){
-    this.getImages()
+    // this.getImages()
     this.setNewExerciseData({listId: this.$route.params.listId})
   },
   beforeDestroy() {

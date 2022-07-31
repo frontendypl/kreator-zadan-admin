@@ -27,8 +27,9 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-auto">
-          <AnswersComponent :answers="answers"/>
+        <hr>
+        <div class="col-12">
+          <AnswersComponent :answers="answers" :userImages="userImages"/>
         </div>
       </div>
 
@@ -52,7 +53,6 @@ export default {
   data(){
     return {
       interval: null,
-      answers: []
     }
   },
   computed: {
@@ -61,8 +61,9 @@ export default {
       exercisesLists: state=>state.listModule.exercisesLists,
       listId: state=>state.listModule.listId,
       exercises: state=>state.exerciseModule.exercises,
-      players: state=>state.playerModule.players
-      // answers
+      players: state=>state.playerModule.players,
+      answers: state=>state.answerModule.answers,
+      userImages: state => state.imageModule.userImages,
     }),
     ...mapGetters(['apiUrl','frontUrl']),
     activeList(){
@@ -73,26 +74,31 @@ export default {
     ...mapActions({
       deleteExercise: 'exerciseModule/deleteExercise',
       setListId: 'listModule/setListId',
+      setUpdateExerciseListErrors: 'listModule/setUpdateExerciseListErrors',
       getExercises: 'exerciseModule/getExercises',
       getPlayers: 'playerModule/getPlayers',
       deletePlayer: 'playerModule/deletePlayer',
-      getAnswers: 'answerModule/getAnswers'
+      getAnswers: 'answerModule/getAnswers',
+      getImages: 'imageModule/getImages',
     }),
 
   },
   created(){
+    this.getImages()
     this.setListId(this.$route.params['listId'])
     this.getPlayers()
     this.getExercises()
-
   },
   mounted(){
+    this.getAnswers()
+
     this.interval = setInterval(()=>{
       // this.getPlayers()
       // this.getAnswers()
     },5000)
   },
   beforeDestroy() {
+    this.setUpdateExerciseListErrors({})
     clearInterval(this.interval)
   }
 }

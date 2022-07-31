@@ -58,6 +58,9 @@ export default {
         setUpdateListName({commit}, newName){
             commit('setUpdateListName', newName)
         },
+        setUpdateExerciseListErrors({commit}, payload){
+            commit('setUpdateExerciseListErrors',payload)
+        },
         /**
          * Set active list based on url :listId params. listId is used in requests
          * @param commit
@@ -67,6 +70,8 @@ export default {
             commit('setListId', listId)
         },
         async getExercisesLists({state, commit, getters, dispatch, rootGetters, rootState}){
+            commit('setUpdateExerciseListErrors',{})
+            commit('setNewExerciseListErrors',{})
             dispatch('setLoader',{list: true}, {root: true})
             try{
                 const response = await axios.get(
