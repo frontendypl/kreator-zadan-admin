@@ -7,17 +7,22 @@
           </div>
           <div class="col-auto">
             <label class="fw-bold">Nazwa</label>
-            <input class="w-100" type="text" placeholder="zadanie1" v-model="name">
+            <input
+                class="w-100 form-control"
+                :class="{'border-danger': errors.name && !name}"
+                type="text"
+                placeholder="zadanie1"
+                v-model="name"
+            >
+            <div class="col-12" v-if="errors.name && !name">
+              <p class="text-center text-danger fw-bold">{{errors.name.message}}</p>
+            </div>
           </div>
         </div>
         <div class="row my-3 mb-5" v-if="!usedImage">
           <div class="col">
             <ImageFormComponent />
           </div>
-<!--          <div class="col-12 col-md-4">-->
-<!--          //TODO Raczej component do usuniecia-->
-<!--            <ExerciseImagePreviewComponent :usedImage="usedImage"/>-->
-<!--          </div>-->
         </div>
 
         <div class="row mb-5">
@@ -59,7 +64,6 @@
 import ImageFormComponent from "@/components/ImageFormComponent";
 import ImagesComponent from "@/components/ImagesComponent";
 import {mapGetters, mapState, mapActions} from "vuex";
-import ExerciseImagePreviewComponent from "@/components/ExerciseImagePreviewComponent";
 import ExerciseFormComponent from "@/components/ExerciseFormComponent";
 /**
  * TODO:
@@ -70,7 +74,7 @@ import ExerciseFormComponent from "@/components/ExerciseFormComponent";
 
 export default {
   name: "ExerciseCreateView",
-  components: {ExerciseFormComponent, ExerciseImagePreviewComponent, ImageFormComponent, ImagesComponent},
+  components: {ExerciseFormComponent, ImageFormComponent, ImagesComponent},
 
   data(){
     return {
@@ -78,7 +82,7 @@ export default {
   },
   computed: {
     ...mapState({
-      errors: state=> state.exerciseModule.errors
+      errors: state=> state.exerciseModule.errors,
     }),
     name:{
       get(){

@@ -7,11 +7,11 @@
           <textarea
               type="text"
               class="form-control form-control-lg"
-              :class="{'border-danger': errors.content}"
+              :class="{'border-danger': errors.content && content===''}"
               placeholder="5 + 5 = __"
               v-model="content"
           ></textarea>
-          <div class="row" v-if="errors.content">
+          <div class="row" v-if="errors.content && content===''">
             <div class="col">
               <p class="text-center text-danger fw-bold">{{errors.content.message}}</p>
             </div>
@@ -25,7 +25,7 @@
             <div class="input-group-text" title="Zaznacz jeśli to prawidłowa odpowiedź">
               <input
                   class="form-check-input mt-0"
-                  :class="{'border-danger': errors.isOneCorrect}"
+                  :class="{'border-danger': !isAnyAnswerOptionCorrect && errors.anyCorrect}"
                   type="checkbox"
                   data-type="answerCheckbox"
                   @change="e=>setAnswer({id: answer.id, isCorrect: e.target.checked ? e.target.checked:false})"
@@ -36,7 +36,7 @@
             <input
                 type="text"
                 class="form-control"
-                :class="{'border-danger': errors[`answers.${index}.text`]}"
+                :class="{'border-danger': errors.anyEmpty && !answers[index].text}"
                 @input="e=>setAnswer({id: answer.id, text: e.target.value})"
             >
             <button
@@ -47,9 +47,9 @@
             >
               Usuń
             </button>
-            <div class="row" v-if="errors[`answers.${index}.text`]">
+            <div class="row" v-if="errors.anyEmpty && !answers[index].text">
               <div class="col">
-                <p class="text-center text-danger fw-bold">{{errors[`answers.${index}.text`].message}}</p>
+                <p class="text-center text-danger fw-bold">{{errors.anyEmpty.message}}</p>
               </div>
             </div>
 <!--            <div class="row" v-if="answerErrors[index]">-->
@@ -62,8 +62,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12" v-if="errors.isOneCorrect">
-          <p class="text-center text-danger fw-bold">{{errors.isOneCorrect.message}}</p>
+        <div class="col-12" v-if="errors.anyCorrect && !isAnyAnswerOptionCorrect">
+          <p class="text-center text-danger fw-bold">{{errors.anyCorrect.message}}</p>
         </div>
         <div class="col-12 mb-2">
           <button
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import {mapState, mapActions} from "vuex";
+import {mapState, mapActions, mapGetters} from "vuex";
 
 export default {
   name: 'ExerciseFormComponent',
@@ -92,7 +92,10 @@ export default {
   computed: {
     ...mapState({
       answers: state=> state.exerciseModule.answers,
-      exerciseContent: state=>state.exerciseModule.content
+      exerciseContent: state=>state.exerciseModule.content,
+    }),
+    ...mapGetters({
+      isAnyAnswerOptionCorrect:'exerciseModule/isAnyAnswerOptionCorrect'
     }),
     content: {
       get(){

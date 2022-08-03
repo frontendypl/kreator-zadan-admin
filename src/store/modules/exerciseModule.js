@@ -23,9 +23,12 @@ export default {
         }
     },
     getters: {
-      usedImage(state, getters, rootState, rootGetters){
-          return rootState.imageModule.userImages.filter(image=>image._id === state.newExerciseData.imageId)[0]
-      }
+        usedImage(state, getters, rootState, rootGetters) {
+            return rootState.imageModule.userImages.filter(image => image._id === state.newExerciseData.imageId)[0]
+        },
+        isAnyAnswerOptionCorrect(state){
+            return !!state.answers.find(answer=> answer.isCorrect)
+        }
     },
     mutations: {
         getExercises(state, payload){
@@ -159,6 +162,7 @@ export default {
                         }
                     }
                 )
+                console.log({response})
                 router.push({name: 'ExerciseListView', params: {listId: rootState.listModule.listId}})
                 dispatch('resetExercise')
             }catch (e) {
