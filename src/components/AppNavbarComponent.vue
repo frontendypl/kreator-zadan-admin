@@ -4,6 +4,7 @@
 <!--      <router-link class="navbar-brand" :to="{name: 'home'}">Start</router-link>-->
       <router-link class="btn btn-outline-light me-auto ms-5"
         :to="backPathObject"
+
       >
         Cofnij
       </router-link>

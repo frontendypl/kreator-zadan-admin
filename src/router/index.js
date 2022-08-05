@@ -6,6 +6,7 @@ import AuthLoginView from "@/views/AuthLoginView";
 import HomeView from "@/views/HomeView";
 import ListDetailsView from "@/views/ListView";
 import ExerciseCreateView from "@/views/ExerciseView";
+import PlayerView from "@/views/PlayerView";
 
 Vue.use(VueRouter)
 
@@ -34,7 +35,12 @@ const routes = [
     path: '/listy-zadan/:listId/dodaj-zadanie',
     name: 'ExerciseCreateView',
     component: ExerciseCreateView
-  }
+  },
+  {
+    path: '/listy-zadan/:listId/uczen/:playerId',
+    name: 'PlayerView',
+    component: PlayerView
+  },
 ]
 
 const router = new VueRouter({

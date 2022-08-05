@@ -23,7 +23,10 @@
         </div>
 
         <div class="col">
-          <PlayersComponent :players="players" @deletePlayer="deletePlayer"/>
+          <PlayersComponent
+              :players="players"
+              :listId="listId"
+              @deletePlayer="deletePlayer"/>
         </div>
       </div>
       <div class="row">
@@ -94,8 +97,8 @@ export default {
   mounted(){
     this.setBackPathObject({name: 'home', params: {}})
     this.interval = setInterval(()=>{
-      // this.getPlayers()
-      // this.getAnswers()
+      this.getPlayers()
+      this.getAnswers()
     },5000)
   },
   beforeDestroy() {

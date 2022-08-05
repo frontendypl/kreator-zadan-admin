@@ -1,7 +1,12 @@
 <template>
-  <div class="c-AnswersComponent text-center">
-    <h3>Odpowiedzi:</h3>
-    <div class="row my-2 border-bottom">
+  <div class="c-AnswersComponent">
+    <h3 c-AnswersComponent__head>
+      Odpowiedzi:
+      <button class="btn float-end btn-outline-dark" @click="hideOldAnswers = !hideOldAnswers">
+        {{hideOldAnswers? 'Pokaż starsze odpowiedzi': 'Ukryj starsze odpowiedzi'}}
+      </button>
+    </h3>
+    <div class="row my-2 c-AnswersComponent__head-row">
       <div class="col-2">Data</div>
       <div class="col-2">Imię</div>
       <div class="col-2">Pytanie</div>
@@ -9,15 +14,25 @@
       <div class="col-2 text-center">Odpowiedź</div>
       <div class="col-2 text-center">Poprawna</div>
     </div>
-    <div class="row align-items-center my-2 border-bottom"
-         :class="{'bg-danger text-light': !answer.answerOption.isCorrect }"
+    <div class="row align-items-center my-2 c-AnswersComponent__answer-row"
+         :class="{'bg-danger text-light': !answer.answerOption.isCorrect,
+          'c-AnswersComponent__answer-row--old':new Date().toLocaleDateString() !== new Date(answer.createdAt).toLocaleDateString()
+          }"
          v-for="(answer, key, index) in answers"
          :key="index"
+         v-show="!hideOldAnswers || new Date().toLocaleDateString() === new Date(answer.createdAt).toLocaleDateString()"
     >
-      <div class="col-2">
-        {{new Date(answer.createdAt).toLocaleString()}}
+      <div class="col-2"
+           :class="{'fw-bold': new Date().toLocaleDateString() === new Date(answer.createdAt).toLocaleDateString()}"
+      >
+        {{new Date().toLocaleDateString() === new Date(answer.createdAt).toLocaleDateString() ?
+          new Date(answer.createdAt).toLocaleTimeString() :
+          new Date(answer.createdAt).toLocaleString()
+        }}
       </div>
-      <div class="col-2">
+      <div class="col-2"
+           :class="{'fw-bold': true, 'fw-bold': new Date().toLocaleDateString() === new Date(answer.createdAt).toLocaleDateString()}"
+      >
         {{answer.player.name}}
       </div>
       <div class="col-2">
@@ -45,6 +60,11 @@
 <script>
 export default {
   name: 'AnswersComponent',
+  data(){
+    return {
+      hideOldAnswers: false
+    }
+  },
   props: {
     answers: {
       type: Array
@@ -58,3 +78,22 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+//overflow-wrap: break-word
+.c-AnswersComponent{
+
+  &__answer-row,
+  &__head-row{
+    font-size: 10px;
+    &--old{
+      opacity: 0.8;
+    }
+  }
+  &__head-row{
+    font-weight: 700;
+  }
+  &__answer-row{
+  }
+}
+</style>
