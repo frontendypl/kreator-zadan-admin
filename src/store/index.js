@@ -26,6 +26,10 @@ export default new Vuex.Store({
       images: false,
       deleteExercise: false,
     },
+    backPathObject: {
+      name: 'Home',
+      params: {}
+    }
   },
   getters: {
     apiUrl(){
@@ -46,10 +50,16 @@ export default new Vuex.Store({
     setLoader(state, loaderStatus){
       state.loader = {...state.loader, ...loaderStatus}
     },
+    setBackPathObject(state, payload){
+      state.backPathObject = {...payload}
+    }
   },
   actions: {
     setLoader(context, loaderStatus){
       context.commit('setLoader', loaderStatus)
     },
+    setBackPathObject({commit},payload){
+      commit('setBackPathObject', payload)
+    }
   }
 })

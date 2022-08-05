@@ -95,6 +95,7 @@ export default {
     ...mapState({
       user: state => state.userModule.user,
       exercisesLists: state => state.listModule.exercisesLists,
+      listId: state => state.listModule.listId,
       userImages: state => state.imageModule.userImages,
       newExerciseData: state => state.exerciseModule.newExerciseData,
       exerciseName: state=> state.exerciseModule.name
@@ -103,11 +104,12 @@ export default {
         {
           apiUrl: 'apiUrl',
           frontUrl: 'frontUrl',
-          usedImage:'exerciseModule/usedImage'
+          usedImage:'exerciseModule/usedImage',
         }),
   },
   methods: {
     ...mapActions({
+      setBackPathObject: 'setBackPathObject',
       getImages: 'imageModule/getImages',
       setNewExerciseData: 'exerciseModule/setNewExerciseData',
       setName: 'exerciseModule/setName',
@@ -118,6 +120,9 @@ export default {
   created(){
     // this.getImages()
     this.setNewExerciseData({listId: this.$route.params.listId})
+  },
+  mounted(){
+    this.setBackPathObject({name: 'ExerciseListView', params: {listId: this.listId}})
   },
   beforeDestroy() {
     this.resetExercise()

@@ -1,36 +1,42 @@
 <template>
-  <div class="c-AnswersComponent">
+  <div class="c-AnswersComponent text-center">
     <h3>Odpowiedzi:</h3>
-    <div class="row my-2">
+    <div class="row my-2 border-bottom">
+      <div class="col-2">Data</div>
       <div class="col-2">Imię</div>
       <div class="col-2">Pytanie</div>
-      <div class="col-4 text-center">Ilustracja</div>
+      <div class="col-2 text-center">Ilustracja</div>
       <div class="col-2 text-center">Odpowiedź</div>
       <div class="col-2 text-center">Poprawna</div>
     </div>
-    <div class="row align-items-center my-2"
+    <div class="row align-items-center my-2 border-bottom"
+         :class="{'bg-danger text-light': !answer.answerOption.isCorrect }"
          v-for="(answer, key, index) in answers"
          :key="index"
     >
       <div class="col-2">
-        {{answer.playerId.name}}
+        {{new Date(answer.createdAt).toLocaleString()}}
       </div>
       <div class="col-2">
-        {{answer.exerciseId.content}}
+        {{answer.player.name}}
       </div>
-      <div class="col-4">
+      <div class="col-2">
+        {{answer.exercise.content}}
+      </div>
+      <div class="col-2">
             <div v-for="(image,i) in userImages" :key="i" >
-                     <div v-show="image._id === answer.exerciseId.image">
+                     <div v-show="image._id === answer.exercise.image">
                        <img :src="image.url" class="img-fluid" alt="" v-if="image.srcType === 'url' ">
                        <img :src="`data:${image.mimetype};base64,${image.src}`" class="img-fluid" :alt="image.originalname"
                             v-if="image.srcType === 'buffer' ">
                      </div>
             </div>
       </div>
-      <div class="col-2 text-success"
-           :class="{'text-danger': !answer.isCorrect}"
-      >
-        {{answer.userAnswerId}}
+      <div class="col-2">
+        {{answer.answerOption.text}}
+      </div>
+      <div class="col-2">
+        {{answer.exercise.answerOptions.find(option=>option.isCorrect).text}}
       </div>
     </div>
   </div>

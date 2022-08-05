@@ -1,7 +1,12 @@
 <template>
   <nav class="c-AppNavbarComponent navbar navbar-expand-lg navbar-dark bg-dark mb-3">
     <div class="container-fluid">
-      <router-link class="navbar-brand" :to="{name: 'home'}">Start</router-link>
+<!--      <router-link class="navbar-brand" :to="{name: 'home'}">Start</router-link>-->
+      <router-link class="btn btn-outline-light me-auto ms-5"
+        :to="backPathObject"
+      >
+        Cofnij
+      </router-link>
 
       <button
           class="btn btn-danger"
@@ -26,6 +31,10 @@ export default {
   name: 'AppNavbarComponent',
   props: {
     user: {
+      type: Object,
+      required: true
+    },
+    backPathObject: {
       type: Object,
       required: true
     }

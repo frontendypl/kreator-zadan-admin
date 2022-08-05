@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
 
-    <AppNavbarComponent @logOut="logOut" :user="user"/>
+    <AppNavbarComponent @logOut="logOut" :user="user" :backPathObject="backPathObject"/>
 
     <AppLoaderComponent v-if="loaderActive" />
 
@@ -24,20 +24,27 @@ export default {
   },
   computed: {
     ...mapState({
-      user: state => state.userModule.user
+      user: state => state.userModule.user,
+      backPathObject: state=>state.backPathObject
     }),
-    ...mapGetters(['loaderActive'])
+    ...mapGetters(['loaderActive']),
+    listIdRouterParam(){
+      return this.$route.params['listId'] || ''
+    }
   },
   methods: {
     ...mapActions({
-          setUser: 'userModule/setUser',
-          logOut: 'userModule/logOut',
-          getExercisesLists: 'listModule/getExercisesLists'
-        })
+      setUser: 'userModule/setUser',
+      logOut: 'userModule/logOut',
+      getExercisesLists: 'listModule/getExercisesLists',
+      setListId: 'listModule/setListId',
+      getImages: 'imageModule/getImages'
+    })
   },
   watch: {
     user: {
       handler(newValue, oldValue){
+        this.getImages()
         if(newValue.token !== oldValue.token){
           if(newValue.token === ''){
             this.$router.push({name:'AuthLoginView'})
@@ -50,6 +57,9 @@ export default {
         }
       },
       deep: true
+    },
+    listIdRouterParam(){
+      this.setListId(this.$route.params['listId'])
     }
   },
   created(){
@@ -57,6 +67,8 @@ export default {
     if(userStored){
       this.setUser(JSON.parse(userStored))
     }
+
+    this.setListId(this.$route.params['listId'])
   },
   mounted(){
 

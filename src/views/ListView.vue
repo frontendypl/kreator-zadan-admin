@@ -80,18 +80,19 @@ export default {
       deletePlayer: 'playerModule/deletePlayer',
       getAnswers: 'answerModule/getAnswers',
       getImages: 'imageModule/getImages',
+      setBackPathObject: 'setBackPathObject'
     }),
 
   },
   created(){
-    this.getImages()
-    this.setListId(this.$route.params['listId'])
+    // this.getImages()
+    // this.setListId(this.$route.params['listId'])
     this.getPlayers()
     this.getExercises()
+    this.getAnswers()
   },
   mounted(){
-    this.getAnswers()
-
+    this.setBackPathObject({name: 'home', params: {}})
     this.interval = setInterval(()=>{
       // this.getPlayers()
       // this.getAnswers()
