@@ -1,11 +1,13 @@
 <template>
   <div class="c-AnswersComponent">
-    <h3 c-AnswersComponent__head>
-      Odpowiedzi:
-      <button class="btn float-end btn-outline-dark" @click="hideOldAnswers = !hideOldAnswers">
-        {{hideOldAnswers? 'Pokaż starsze odpowiedzi': 'Ukryj starsze odpowiedzi'}}
-      </button>
-    </h3>
+    <div class="row">
+      <h3 class="c-AnswersComponent__head">
+        Odpowiedzi:
+        <button class="btn float-end btn-outline-dark" @click="hideOldAnswers = !hideOldAnswers">
+          {{hideOldAnswers? 'Pokaż starsze odpowiedzi': 'Ukryj starsze odpowiedzi'}}
+        </button>
+      </h3>
+    </div>
     <div class="row my-2 c-AnswersComponent__head-row">
       <div class="col-2">Data</div>
       <div class="col-2">Imię</div>
@@ -14,13 +16,14 @@
       <div class="col-2 text-center">Odpowiedź</div>
       <div class="col-2 text-center">Poprawna</div>
     </div>
-    <div class="row align-items-center my-2 c-AnswersComponent__answer-row"
+    <div class="row align-items-center my-4 c-AnswersComponent__answer-row"
          :class="{'bg-danger text-light': !answer.answerOption.isCorrect,
           'c-AnswersComponent__answer-row--old':new Date().toLocaleDateString() !== new Date(answer.createdAt).toLocaleDateString()
           }"
          v-for="(answer, key, index) in answers"
          :key="index"
          v-show="!hideOldAnswers || new Date().toLocaleDateString() === new Date(answer.createdAt).toLocaleDateString()"
+         v-if="answer.exercise"
     >
       <div class="col-2"
            :class="{'fw-bold': new Date().toLocaleDateString() === new Date(answer.createdAt).toLocaleDateString()}"

@@ -2,7 +2,7 @@
   <div class="v-ListDetailsView w-100 mt-5">
     <div class="container">
 
-      <div class="row gx-5">
+      <div class="row gx-5 my-5">
         <div class="col">
           <ListUpdateFormComponent />
         </div>
@@ -11,26 +11,27 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row my-5">
         <div class="col">
-          <h3>Zadania</h3>
           <router-link class="btn btn-success btn-lg" :to="{name: 'ExerciseCreateView'}">
             Stwórz nowe zadanie
           </router-link>
           <div class="col">
-            <ExercisesComponent :exercises="exercises" @deleteExercise="deleteExercise" />
+            <ExercisesComponent :exercises="exercises" :userImages="userImages"  @deleteExercise="deleteExercise" />
           </div>
         </div>
-
+      </div>
+      <div class="row my-5">
         <div class="col">
           <PlayersComponent
               :players="players"
               :listId="listId"
+              :answers="answers"
+              :exercises="exercises"
               @deletePlayer="deletePlayer"/>
         </div>
       </div>
-      <div class="row">
-        <hr>
+      <div class="row my-5">
         <div class="col-12">
           <AnswersComponent :answers="answers" :userImages="userImages"/>
         </div>
