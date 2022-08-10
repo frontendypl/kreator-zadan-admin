@@ -51,7 +51,7 @@ export default {
         },
         setRegisterErrors(state, payload){
             state.registerFormErrors = {...payload}
-        }
+        },
     },
     actions: {
         setUser(context, userData){
@@ -91,6 +91,21 @@ export default {
             }catch (e) {
                 commit('setRegisterErrors', e.response.data.errors)
                 dispatch('setLoader', {form: false}, { root: true })
+            }
+        },
+
+        async removeUser({dispatch, state, rootGetters}){
+            try{
+                dispatch('setLoader', {form: true}, { root: true })
+                const response = await axios.delete(`${rootGetters.apiUrl}/users`,
+                    {headers: {
+                        'Authorization': `Bearer ${state.user.token}`
+                    }}
+                )
+                localStorage.clear()
+                window.location.reload()
+            }catch (e) {
+                console.log(e)
             }
         }
     }

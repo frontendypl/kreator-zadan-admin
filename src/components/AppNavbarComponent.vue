@@ -10,11 +10,18 @@
       </router-link>
 
       <button
-          class="btn btn-danger"
+          class="btn btn-info"
           @click="$emit('logOut')"
           v-if="user._id"
       >
         Wyloguj się
+      </button>
+      <button
+          class="btn btn-danger"
+          @click="$emit('removeUser')"
+          v-if="user._id"
+      >
+        Usuń Konto
       </button>
       <router-link
           class="btn btn-success"

@@ -60,6 +60,6 @@ export default new Vuex.Store({
     },
     setBackPathObject({commit},payload){
       commit('setBackPathObject', payload)
-    }
+    },
   }
 })

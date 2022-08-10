@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
 
-    <AppNavbarComponent @logOut="logOut" :user="user" :backPathObject="backPathObject"/>
+    <AppNavbarComponent @logOut="logOut" @removeUser="removeUser" :user="user" :backPathObject="backPathObject"/>
 
     <AppLoaderComponent v-if="loaderActive" />
 
@@ -36,6 +36,7 @@ export default {
     ...mapActions({
       setUser: 'userModule/setUser',
       logOut: 'userModule/logOut',
+      removeUser: 'userModule/removeUser',
       getExercisesLists: 'listModule/getExercisesLists',
       setListId: 'listModule/setListId',
       getImages: 'imageModule/getImages'
