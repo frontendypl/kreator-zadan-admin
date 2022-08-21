@@ -95,6 +95,7 @@ export default {
         },
 
         async removeUser({dispatch, state, rootGetters}){
+            localStorage.clear()
             try{
                 dispatch('setLoader', {form: true}, { root: true })
                 const response = await axios.delete(`${rootGetters.apiUrl}/users`,
@@ -102,7 +103,6 @@ export default {
                         'Authorization': `Bearer ${state.user.token}`
                     }}
                 )
-                localStorage.clear()
                 window.location.reload()
             }catch (e) {
                 console.log(e)
