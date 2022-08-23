@@ -2,7 +2,10 @@
   <div class="v-HomeView w-100 mt-5">
     <div class="container">
 
-      <h4 class="mb-3">Witaj, <b>{{ user.email }}</b>, stwórz pierwsze zadania !</h4>
+      <h4 class="mb-3">
+        Witaj, <b>{{ user.email }}</b>, stwórz pierwsze zadania !
+        <a :href="`${frontUrl}/#/${user.shortCode}/listy-zadan`" class="btn btn-dark" target="_blank">{{user.shortCode}}</a>
+      </h4>
 
       <ListFormComponent />
 
@@ -16,7 +19,7 @@
 </template>
 
 <script>
-import {mapActions, mapState} from "vuex";
+import {mapActions, mapGetters, mapState} from "vuex";
 import ListFormComponent from "@/components/ListFormComponent";
 import ListsComponent from "@/components/ListsComponent";
 
@@ -32,7 +35,8 @@ export default {
     ...mapState({
       user: state => state.userModule.user,
       exercisesLists: state=>state.listModule.exercisesLists
-    })
+    }),
+    ...mapGetters(['frontUrl']),
   },
   methods: {
     ...mapActions(['setLoader']),
