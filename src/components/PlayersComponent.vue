@@ -6,35 +6,52 @@
         Uczniowie:
       </h3>
     </div>
-    <div class="row text-center my-2 c-PlayersComponent__head-row">
-      <div class="col-2">Data</div>
-      <div class="col-2">Imię</div>
-      <div class="col-2">Odpowiedzi</div>
-      <div class="col-2">Błędy</div>
-      <div class="col-2">Akcje</div>
+    <div v-if="!players.length">
+      <div class="row">
+        <div class="col">
+          <p>
+            Nie ma tu jeszcze nikogo.
+          </p>
+          <p>
+            Udostepnij kod dostępu lub link:
+            <a :href="`${frontUrl}/#/${activeList.shortCode}`" target="_blank">
+              {{activeList.shortCode}}
+            </a> aby mogli dołączyć.
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="row text-center align-items-center my-4 c-PlayersComponent__item-row"
-         v-for="(player, key, index) in players"
-         :class="{
+    <div v-else>
+      <div class="row text-center my-2 c-PlayersComponent__head-row">
+        <div class="col-2">Data</div>
+        <div class="col-2">Imię</div>
+        <div class="col-2">Odpowiedzi</div>
+        <div class="col-2">Błędy</div>
+        <div class="col-2">Akcje</div>
+      </div>
+      <div class="row text-center align-items-center my-4 c-PlayersComponent__item-row"
+           v-for="(player, key, index) in players"
+           :class="{
            'list-completed': answers.filter(answer=> answer.player._id === player._id && answer.answerOption.isCorrect).length === exercises.length,
            'list-error' : answers.filter(answer=> answer.player._id === player._id && answer.answerOption.isCorrect).length > exercises.length
          }"
-         :key="index"
-    >
-      <div class="col-2">
-        {{new Date(player.createdAt).toLocaleString()}}
-      </div>
-      <div class="col-2 fw-bold">
-        {{player.name}}
-      </div>
-      <div class="col-2" >
-        {{answers.filter(answer=> answer.player._id === player._id && answer.answerOption.isCorrect).length}} / {{exercises.length}}
-      </div>
-      <div class="col-2 text-danger fw-bold">
-        {{answers.filter(answer=> answer.player._id === player._id && !answer.answerOption.isCorrect).length}}
-      </div>
-      <div class="col-2">
-        <button class="btn btn-danger c-ExercisesComponent__button" @click="handleDelete(player._id)">usuń</button>
+           :key="index"
+      >
+        <div class="col-2">
+          {{new Date(player.createdAt).toLocaleString()}}
+        </div>
+        <div class="col-2 fw-bold">
+          {{player.name}}
+        </div>
+        <div class="col-2" >
+          {{answers.filter(answer=> answer.player._id === player._id && answer.answerOption.isCorrect).length}} / {{exercises.length}}
+        </div>
+        <div class="col-2 text-danger fw-bold">
+          {{answers.filter(answer=> answer.player._id === player._id && !answer.answerOption.isCorrect).length}}
+        </div>
+        <div class="col-2">
+          <button class="btn btn-danger c-ExercisesComponent__button" @click="handleDelete(player._id)">usuń</button>
+        </div>
       </div>
     </div>
   </div>
@@ -46,8 +63,8 @@
 export default {
   name: 'PlayersComponent',
   props: {
-    listId: {
-      type: String,
+    activeList: {
+      type: Object,
       required: true
     },
     players: {
@@ -58,6 +75,10 @@ export default {
     },
     exercises: {
       type: Array
+    },
+    frontUrl: {
+      type: String,
+      required: true
     }
   },
   methods:{

@@ -24,11 +24,13 @@
       <div class="row my-5">
         <div class="col">
           <PlayersComponent
+              :activeList="activeList"
               :players="players"
-              :listId="listId"
               :answers="answers"
               :exercises="exercises"
-              @deletePlayer="deletePlayer"/>
+              :frontUrl="frontUrl"
+              @deletePlayer="deletePlayer"
+          />
         </div>
       </div>
       <div class="row my-5">
