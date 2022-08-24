@@ -1,7 +1,9 @@
 <template>
-  <div class="c-ImagesComponent">
+  <div class="c-ImagesComponent"
+    :class="{'c-ImagesComponent--multi':userImages.length>1}"
+  >
     <div class="row">
-      <div class="col-md-6 col-lg-3 mb-5 d-flex justify-content-end flex-column"
+      <div class="col-md-6 col-lg-3  mb-3 d-flex justify-content-end flex-column"
            :class="{activeImage: image._id === usedImage._id, 'visually-hidden': usedImage._id && (image._id !==usedImage._id) }"
            v-for="image in userImages"
            :key="image._id"
@@ -21,7 +23,7 @@
             >
               Użyj
             </button>
-            <button class="btn btn-outline-dark w-100"
+            <button class="btn btn-outline-dark shadow-none w-100"
                     @click="useImage('')"
                     v-else
             >
@@ -68,8 +70,11 @@ export default {
 
 <style lang="scss">
   .c-ImagesComponent {
-    max-height: 50vh;
-    overflow: auto;
+    overflow-x: hidden;
+    &--multi{
+      max-height: 50vh;
+      overflow-y: auto;
+    }
   }
   .activeImage{
     img{

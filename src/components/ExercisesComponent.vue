@@ -17,9 +17,9 @@
         <div class="col-2">Data</div>
         <div class="col-2">Nazwa</div>
         <div class="col-2">Pytanie</div>
-        <div class="col-2 text-center">Ilustracja</div>
-        <div class="col-2 text-center">Odpowiedzi:</div>
-        <div class="col-2 text-center">Akcje:</div>
+        <div class="col-2">Ilustracja</div>
+        <div class="col-2">Odpowiedzi:</div>
+        <div class="col-2">Akcje:</div>
       </div>
       <div class="row align-items-center my-2 border-top c-ExercisesComponent__exercise-row"
            v-for="(exercise, key, index) in exercises"
@@ -36,7 +36,7 @@
           {{exercise.name}}
         </div>
         <div class="col-2">
-          {{exercise.content}}
+          {{exercise.content.length < 200 ? exercise.content : exercise.content.slice(0,200) + '...'}}
         </div>
         <div class="col-2">
           <img class="img-fluid" alt=""

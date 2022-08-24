@@ -53,7 +53,7 @@
           {{answer.player.name}}
         </div>
         <div class="col-2">
-          {{answer.exercise.content}}
+          {{answer.exercise.content.length < 200 ? answer.exercise.content : answer.exercise.content.slice(0,200) + '...'}}
         </div>
         <div class="col-2">
           <div v-for="(image,i) in userImages" :key="i" >

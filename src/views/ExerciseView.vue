@@ -25,13 +25,13 @@
           </div>
         </div>
 
-        <div class="row mb-5">
+        <div class="row mb-5" v-if="userImages.length">
           <div class="col-12" v-if="!usedImage">
-            <h3 class="text-center fw-bold">Możesz wykorzystać użyte poprzednio obrazy:</h3>
+            <h3 class="fw-bold">Możesz wykorzystać użyte poprzednio obrazy:</h3>
           </div>
           <div class="col-12">
             <ImagesComponent
-                class="mt-5"
+                class=""
                 :userImages="userImages"
                 :usedImage="usedImage"
                 @selectImage="setNewExerciseData" />
@@ -47,7 +47,7 @@
 <!--        //przycisk dissabled - validacja front TODO-->
         <div class="row mb-5">
           <div class="col-12">
-            <button class="btn btn-success w-100" type="button"
+            <button class="btn btn-success w-100 p-4 fs-2 fw-bold" type="button"
               @click="saveExercise"
             >
               GOTOWE, Zapisz!

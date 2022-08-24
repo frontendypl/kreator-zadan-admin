@@ -1,12 +1,14 @@
 <template>
   <div class="c-ExerciseFormComponent">
     <form>
-      <div class="row">
+      <div class="row mb-5">
         <div class="col-12 mb-3">
-          <label class="col-form-label display-2">Treść zadania</label>
+          <h5>Treść zadania:</h5>
+        </div>
+        <div class="col-12">
           <textarea
               type="text"
-              class="form-control form-control-lg"
+              class="form-control form-control-lg fs-1"
               :class="{'border-danger': errors.content && content===''}"
               placeholder="5 + 5 = __"
               v-model="content"
@@ -19,9 +21,12 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-12 mb-1">
+          <h5>Odpowiedzi:</h5>
+          <p>Dodaj kilka odpowiedzi. Zaznacz jedną prawidłową.</p>
+        </div>
         <div class="col-12 mb-2">
-          <h4>Odpowiedzi</h4>
-          <div class="input-group mb-3" v-for="(answer, index) in answers" :key="answer.id">
+          <div class="input-group input-group-lg mb-3" v-for="(answer, index) in answers" :key="answer.id">
             <div class="input-group-text" title="Zaznacz jeśli to prawidłowa odpowiedź">
               <input
                   class="form-check-input mt-0"
@@ -67,7 +72,7 @@
         </div>
         <div class="col-12 mb-2">
           <button
-              class="btn btn-primary w-100"
+              class="btn btn-primary btn-lg w-100"
               type="button"
               @click="addNewAnswer"
           >

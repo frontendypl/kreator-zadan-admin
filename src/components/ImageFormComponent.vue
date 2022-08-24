@@ -21,11 +21,14 @@
              v-model="imageUrl"
       >
     </div>
+    <div class="col-12">
+      <p>Plik lub link do obrazu należy zatwierdzić zielonym przyciskiem. Jeśli obraz jest prawidłowy pojawi się miniaturka.</p>
+    </div>
     <div class="col">
       <button class="btn btn-lg btn-danger me-2">usuń</button>
       <button class="btn btn-lg btn-success" @click="handleForm">zatwierdź</button>
     </div>
-    <div class="col-12">
+    <div class="col-12 my-3">
       <h4 class="text-danger my-1"
           v-for="(error, key, i) in errors"
           :key="i"

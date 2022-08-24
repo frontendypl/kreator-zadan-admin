@@ -22,14 +22,14 @@
       </div>
     </div>
     <div v-else>
-      <div class="row text-center my-2 c-PlayersComponent__head-row">
+      <div class="row my-2 justify-content-between c-PlayersComponent__head-row">
         <div class="col-2">Data</div>
         <div class="col-2">Imię</div>
         <div class="col-2">Odpowiedzi</div>
         <div class="col-2">Błędy</div>
         <div class="col-2">Akcje</div>
       </div>
-      <div class="row text-center align-items-center my-4 c-PlayersComponent__item-row"
+      <div class="row align-items-center my-4 justify-content-between c-PlayersComponent__item-row"
            v-for="(player, key, index) in players"
            :class="{
            'list-completed': answers.filter(answer=> answer.player._id === player._id && answer.answerOption.isCorrect).length === exercises.length,
