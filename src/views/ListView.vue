@@ -35,7 +35,10 @@
       </div>
       <div class="row my-5">
         <div class="col-12">
-          <AnswersComponent :answers="answers" :userImages="userImages"/>
+          <AnswersComponent
+              :answers="answers"
+              :userImages="userImages"
+          />
         </div>
       </div>
 
