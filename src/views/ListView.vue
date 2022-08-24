@@ -13,11 +13,13 @@
 
       <div class="row my-5">
         <div class="col">
-          <router-link class="btn btn-success btn-lg" :to="{name: 'ExerciseCreateView'}">
-            Stwórz nowe zadanie
-          </router-link>
+
           <div class="col">
-            <ExercisesComponent :exercises="exercises" :userImages="userImages"  @deleteExercise="deleteExercise" />
+            <ExercisesComponent :exercises="exercises" :userImages="userImages"  @deleteExercise="deleteExercise" >
+              <router-link class="btn btn-success btn-lg" :to="{name: 'ExerciseCreateView'}">
+                Stwórz nowe zadanie
+              </router-link>
+            </ExercisesComponent>
           </div>
         </div>
       </div>
