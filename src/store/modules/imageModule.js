@@ -12,6 +12,11 @@ export default {
             state.userImages = images
         }
     },
+    getters: {
+      userImagesActive(state){
+          return state.userImages.filter(image=>!image.isArchived)
+      }
+    },
     actions: {
         async getImages({commit, dispatch, rootGetters, rootState}){
             try{
@@ -31,13 +36,17 @@ export default {
                 dispatch('setLoader', {images: false}, { root: true }) //TODO handle images loading error !!!
             }
         },
-        async deleteImage({dispatch, rootGetters, rootState},id){
+        async switchImage({dispatch, rootGetters, rootState},{id, isArchived}){
 
             try{
                 dispatch('setLoader', {images: true}, { root: true })
 
-                const response = await axios.delete(
+                const response = await axios.patch(
                     `${rootGetters.apiUrl}/images/${id}`,
+                    {
+                        id,
+                        isArchived
+                    },
                     {
                         headers: {
                             'Authorization': `Bearer ${rootState.userModule.user.token}`

@@ -25,14 +25,14 @@
           </div>
         </div>
 
-        <div class="row mb-5" v-if="userImages.length">
+        <div class="row mb-5" v-if="userImagesActive.length">
           <div class="col-12" v-if="!usedImage">
             <h3 class="fw-bold">Możesz wykorzystać użyte poprzednio obrazy:</h3>
           </div>
           <div class="col-12">
             <ImagesComponent
                 class=""
-                :userImages="userImages"
+                :userImages="userImagesActive"
                 :usedImage="usedImage"
                 @selectImage="setNewExerciseData" />
           </div>
@@ -105,6 +105,7 @@ export default {
           apiUrl: 'apiUrl',
           frontUrl: 'frontUrl',
           usedImage:'exerciseModule/usedImage',
+          userImagesActive: 'imageModule/userImagesActive'
         }),
   },
   methods: {

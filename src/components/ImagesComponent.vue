@@ -31,7 +31,7 @@
             </button>
           </div>
           <div class="col">
-            <button class="btn btn-danger w-100" @click="deleteImage(image._id)"
+            <button class="btn btn-danger w-100" @click="switchImage({id: image._id, isArchived: !image.isArchived})"
                     v-if="image._id !== usedImage._id"
             >
               Usuń
@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      deleteImage: 'imageModule/deleteImage'
+      switchImage: 'imageModule/switchImage'
     }),
     useImage(id){
       this.$emit('selectImage', {imageId: id})
