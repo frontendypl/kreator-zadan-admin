@@ -31,8 +31,10 @@
             </button>
           </div>
           <div class="col">
-            <button class="btn btn-danger w-100" @click="switchImage({id: image._id, isArchived: !image.isArchived})"
+            <button class="btn btn-danger w-100"
+                    @click="switchImage({id: image._id, isArchived: !image.isArchived})"
                     v-if="image._id !== usedImage._id"
+                    title="Po usunięciu zdjęcie wciąż bedzie widoczne w innych zadaniach."
             >
               Usuń
             </button>
