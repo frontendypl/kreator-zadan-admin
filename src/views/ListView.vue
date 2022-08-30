@@ -29,7 +29,7 @@
               :activeList="activeList"
               :players="players"
               :answers="answers"
-              :exercises="exercises"
+              :exercises="activeExercises"
               :frontUrl="frontUrl"
               @deletePlayer="deletePlayer"
           />
@@ -76,7 +76,11 @@ export default {
       answers: state=>state.answerModule.answers,
       userImages: state => state.imageModule.userImages,
     }),
-    ...mapGetters(['apiUrl','frontUrl']),
+    ...mapGetters({
+      apiUrl: 'apiUrl',
+      frontUrl: 'frontUrl',
+      activeExercises: 'exerciseModule/activeExercises'
+    }),
     activeList(){
       return this.exercisesLists.filter(list=>list._id === this.listId)[0]
     }

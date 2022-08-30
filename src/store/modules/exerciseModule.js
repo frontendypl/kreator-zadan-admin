@@ -1,5 +1,6 @@
 import axios from "axios";
 import router from "@/router";
+import {filter} from "core-js/internals/array-iteration";
 
 export default {
     namespaced: true,
@@ -28,6 +29,9 @@ export default {
         },
         isAnyAnswerOptionCorrect(state){
             return !!state.answers.find(answer=> answer.isCorrect)
+        },
+        activeExercises(state) {
+            return state.exercises.filter(exercise=>!exercise.isArchived)
         }
     },
     mutations: {
@@ -170,11 +174,13 @@ export default {
             }
         },
         async switchExercise({dispatch, rootState, rootGetters}, {exerciseId, isArchived}){
+            console.log(exerciseId, isArchived)
             dispatch('setLoader', {deleteExercise: true}, { root: true })
             const response = await axios.patch(`${rootGetters.apiUrl}/exercises/${exerciseId}`,{
                 exerciseId,
                 isArchived
                 },
+
                 {
                 headers: {
                     'Authorization': `Bearer ${rootState.userModule.user.token}`

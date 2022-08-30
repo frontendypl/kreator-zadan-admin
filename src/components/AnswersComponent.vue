@@ -31,8 +31,10 @@
         <div class="col-2 text-center">Poprawna</div>
       </div>
       <div class="row align-items-center my-4 c-AnswersComponent__answer-row"
-           :class="{'bg-danger text-light': !answer.answerOption.isCorrect,
-          'c-AnswersComponent__answer-row--old':new Date().toLocaleDateString() !== new Date(answer.createdAt).toLocaleDateString()
+           :class="{
+          'bg-danger text-light': !answer.answerOption.isCorrect,
+          'c-AnswersComponent__answer-row--old':new Date().toLocaleDateString() !== new Date(answer.createdAt).toLocaleDateString(),
+          'c-AnswersComponent__answer-row--archived': answer.exercise.isArchived
           }"
            v-for="(answer, key, index) in answers"
            :key="index"
@@ -106,6 +108,9 @@ export default {
     font-size: 10px;
     &--old{
       opacity: 0.8;
+    }
+    &--archived {
+      opacity: 0.5;
     }
   }
   &__head-row{

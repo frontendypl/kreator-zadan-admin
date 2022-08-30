@@ -32,8 +32,7 @@
       <div class="row align-items-center my-4 justify-content-between c-PlayersComponent__item-row"
            v-for="(player, key, index) in players"
            :class="{
-           'list-completed': answers.filter(answer=> answer.player._id === player._id && answer.answerOption.isCorrect).length === exercises.length,
-           'list-error' : answers.filter(answer=> answer.player._id === player._id && answer.answerOption.isCorrect).length > exercises.length
+           'list-completed': answers.filter(answer=> answer.player._id === player._id && answer.answerOption.isCorrect).length >=exercises.length
          }"
            :key="index"
       >
@@ -107,8 +106,5 @@ export default {
     background-color: darkseagreen;
   }
 
-  .list-error {
-    background-color: yellow;
-  }
 }
 </style>
