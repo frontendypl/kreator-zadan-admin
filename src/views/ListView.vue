@@ -15,7 +15,7 @@
         <div class="col">
 
           <div class="col">
-            <ExercisesComponent :exercises="exercises" :userImages="userImages"  @deleteExercise="deleteExercise" >
+            <ExercisesComponent :exercises="exercises" :userImages="userImages"  @switchExercise="switchExercise" >
               <router-link class="btn btn-success btn-lg" :to="{name: 'ExerciseCreateView'}">
                 Stwórz nowe zadanie
               </router-link>
@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      deleteExercise: 'exerciseModule/deleteExercise',
+      switchExercise: 'exerciseModule/switchExercise',
       setListId: 'listModule/setListId',
       setUpdateExerciseListErrors: 'listModule/setUpdateExerciseListErrors',
       getExercises: 'exerciseModule/getExercises',

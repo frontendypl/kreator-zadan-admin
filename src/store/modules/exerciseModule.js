@@ -169,9 +169,13 @@ export default {
                 commit('setErrors', e.response.data.errors)
             }
         },
-        async deleteExercise({dispatch, rootState, rootGetters}, exerciseId){
+        async switchExercise({dispatch, rootState, rootGetters}, {exerciseId, isArchived}){
             dispatch('setLoader', {deleteExercise: true}, { root: true })
-            const response = await axios.delete(`${rootGetters.apiUrl}/exercises/${exerciseId}`,{
+            const response = await axios.patch(`${rootGetters.apiUrl}/exercises/${exerciseId}`,{
+                exerciseId,
+                isArchived
+                },
+                {
                 headers: {
                     'Authorization': `Bearer ${rootState.userModule.user.token}`
                 }

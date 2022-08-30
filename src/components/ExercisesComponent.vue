@@ -23,6 +23,7 @@
       </div>
       <div class="row align-items-center my-2 border-top c-ExercisesComponent__exercise-row"
            v-for="(exercise, key, index) in exercises"
+           :class="{'archived' :exercise.isArchived}"
            :key="index"
       >
         <div class="col-2"
@@ -57,8 +58,13 @@
             {{option.text}}
           </p>
         </div>
-        <div class="col-2">
-          <button class="btn btn-danger c-ExercisesComponent__button" @click="$emit('deleteExercise', exercise._id)">usuń</button>
+        <div class="col-2 col--action">
+          <button class="btn  c-ExercisesComponent__button"
+                  :class="[exercise.isArchived ? 'btn-success':'btn-danger']"
+                  :title="exercise.isArchived ? 'Kliknij by zadanie znów było widoczne.':'Ukryj to zadanie. Nie pojawi się do rozwiązywania.'"
+                  @click="$emit('switchExercise', {exerciseId:exercise._id, isArchived: !exercise.isArchived})">
+            {{exercise.isArchived? 'Pokaż' : 'Ukryj'}}
+          </button>
         </div>
       </div>
     </div>
@@ -106,6 +112,12 @@ export default {
   &__button{
     font-size: 10px;
     padding: 0.2em 0.5em;
+  }
+
+  .archived {
+    div:not(.col--action){
+      opacity: 0.5;
+    }
   }
 }
 </style>
