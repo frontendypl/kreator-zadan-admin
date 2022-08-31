@@ -1,6 +1,6 @@
 <template>
   <div class="v-ListDetailsView w-100 mt-5">
-    <div class="container">
+    <div class="container" v-if="activeList">
 
       <div class="row gx-5 my-5">
         <div class="col">
@@ -15,7 +15,12 @@
         <div class="col">
 
           <div class="col">
-            <ExercisesComponent :exercises="exercises" :userImages="userImages"  @switchExercise="switchExercise" >
+            <ExercisesComponent
+                :exercises="exercises"
+                :userImages="userImages"
+                @switchExercise="switchExercise"
+
+            >
               <router-link class="btn btn-success btn-lg" :to="{name: 'ExerciseCreateView'}">
                 Stwórz nowe zadanie
               </router-link>
@@ -32,6 +37,7 @@
               :exercises="activeExercises"
               :frontUrl="frontUrl"
               @deletePlayer="deletePlayer"
+
           />
         </div>
       </div>
@@ -40,6 +46,7 @@
           <AnswersComponent
               :answers="answers"
               :userImages="userImages"
+
           />
         </div>
       </div>
@@ -59,7 +66,7 @@ import AnswersComponent from "@/components/AnswersComponent";
 //TODO get players and other data every few seconds ???
 
 export default {
-  name: 'ListDetailsView',
+  name: 'ListView',
   components: {AnswersComponent, ListUpdateFormComponent, PlayersComponent, ExercisesComponent},
   data(){
     return {
@@ -79,11 +86,12 @@ export default {
     ...mapGetters({
       apiUrl: 'apiUrl',
       frontUrl: 'frontUrl',
-      activeExercises: 'exerciseModule/activeExercises'
+      activeExercises: 'exerciseModule/activeExercises',
+      activeList: 'listModule/activeList'
     }),
-    activeList(){
-      return this.exercisesLists.filter(list=>list._id === this.listId)[0]
-    }
+    // activeList(){
+    //   return this.exercisesLists.filter(list=>list._id === this.listId)[0]
+    // }
   },
   methods: {
     ...mapActions({
@@ -102,6 +110,11 @@ export default {
   created(){
     // this.getImages()
     // this.setListId(this.$route.params['listId'])
+    // console.log(this.exercisesLists)
+    // if(this.exercisesLists.length){
+    //   this.$router.push({name: 'Home'})
+    // }
+
     this.getPlayers()
     this.getExercises()
     this.getAnswers()
