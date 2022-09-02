@@ -14,6 +14,8 @@ export default {
             },
             name: 'Nowe Zadanie', //późnej to numerowac od ilosci zadan w danej liscie np "zadanie 1"
             content: '',
+            contentFont: '',
+            answersFont: '',
             answers: [
                 {
                     id: Date.now(),
@@ -89,6 +91,14 @@ export default {
             state.content = content
         },
 
+        setContentFont(state, font){
+            state.contentFont = font
+        },
+        setAnswersFont(state, font){
+            state.answersFont = font
+        },
+
+
         setErrors(state, errors) {
             state.errors = {...errors}
         },
@@ -108,6 +118,8 @@ export default {
                     isCorrect: false
                 }
             ]
+            state.contentFont = ''
+            state.answersFont = ''
         },
     },
 
@@ -144,6 +156,13 @@ export default {
             commit('setContent', content)
         },
 
+        setContentFont({commit}, font){
+            commit('setContentFont', font)
+        },
+        setAnswersFont({commit}, font){
+            commit('setAnswersFont', font)
+        },
+
         async saveExercise({commit,dispatch,state,rootGetters,rootState }){
             // wyświetlić błędy
             // zrobic przekierowanie lub komunikat z linkami "dodano pomyślnie, kliknij by dodać następne lub wróć do widoku listy"
@@ -153,7 +172,9 @@ export default {
                 image: state.newExerciseData.imageId || null,
                 name: state.name,
                 content: state.content,
-                answers: state.answers
+                answers: state.answers,
+                answersFont: state.answersFont,
+                contentFont: state.contentFont
             }
 
             try{

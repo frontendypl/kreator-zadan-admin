@@ -54,7 +54,7 @@
         >
           {{answer.player.name}}
         </div>
-        <div class="col-2">
+        <div class="col-2" :class="{'written-font': !!answer.exercise.contentFont}">
           {{answer.exercise.content.length < 200 ? answer.exercise.content : answer.exercise.content.slice(0,200) + '...'}}
         </div>
         <div class="col-2">
@@ -66,10 +66,10 @@
             </div>
           </div>
         </div>
-        <div class="col-2">
+        <div class="col-2" :class="{'written-font': !!answer.exercise.answersFont}">
           {{answer.answerOption.text}}
         </div>
-        <div class="col-2">
+        <div class="col-2" :class="{'written-font': !!answer.exercise.answersFont}">
           {{answer.exercise.answerOptions.find(option=>option.isCorrect).text}}
         </div>
       </div>

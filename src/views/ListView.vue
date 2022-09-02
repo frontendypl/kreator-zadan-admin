@@ -124,7 +124,7 @@ export default {
     this.interval = setInterval(()=>{
       this.getPlayers()
       this.getAnswers()
-    },5000)
+    },3000)
   },
   beforeDestroy() {
     this.setUpdateExerciseListErrors({})

@@ -88,4 +88,9 @@ body {
   background-repeat: no-repeat;
   min-height: 100vh;
 }
+
+.written-font{
+  font-family: 'element';
+}
+
 </style>

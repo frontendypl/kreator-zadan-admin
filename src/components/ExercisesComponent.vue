@@ -36,7 +36,7 @@
         <div class="col-2">
           {{exercise.name}}
         </div>
-        <div class="col-2">
+        <div class="col-2" :class="{'written-font': !!exercise.contentFont}">
           {{exercise.content.length < 200 ? exercise.content : exercise.content.slice(0,200) + '...'}}
         </div>
         <div class="col-2">
@@ -50,7 +50,7 @@
                v-if="exercise.image && exercise.image.srcType === 'buffer' "
           >
         </div>
-        <div class="col-2">
+        <div class="col-2" :class="{'written-font': !!exercise.answersFont}">
           <p v-for="(option, key, index) in exercise.answerOptions"
              :class="{'text-success fw-bold':option.isCorrect}"
              :key="index"

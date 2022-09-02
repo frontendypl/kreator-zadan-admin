@@ -5,11 +5,11 @@
         <div class="col-12 mb-3">
           <h5>Treść zadania:</h5>
         </div>
-        <div class="col-12">
+        <div class="col-12 mb-3">
           <textarea
               type="text"
               class="form-control form-control-lg fs-1"
-              :class="{'border-danger': errors.content && content===''}"
+              :class="{'border-danger': errors.content && content==='', 'written-font': !!contentFont}"
               placeholder="5 + 5 = __"
               v-model="content"
           ></textarea>
@@ -17,6 +17,18 @@
             <div class="col">
               <p class="text-center text-danger fw-bold">{{errors.content.message}}</p>
             </div>
+          </div>
+        </div>
+        <div class="col-12 ">
+<!--          contentFont-->
+          <div class="form-check ">
+            <input class="form-check-input" type="checkbox"
+                   @change="e=>setContentFont( e.target.checked ? 'element':'')"
+                   :checked="!!contentFont"
+            >
+            <label class="form-check-label">Użyj czcinki pisanej
+              (<span class="written-font">A a B b C c</span>)
+            </label>
           </div>
         </div>
       </div>
@@ -41,7 +53,7 @@
             <input
                 type="text"
                 class="form-control"
-                :class="{'border-danger': errors.anyEmpty && !answers[index].text}"
+                :class="{'border-danger': errors.anyEmpty && !answers[index].text, 'written-font': !!answersFont}"
                 @input="e=>setAnswer({id: answer.id, text: e.target.value})"
             >
             <button
@@ -64,6 +76,20 @@
 <!--            </div>-->
           </div>
 
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-12">
+<!--          answersFont-->
+          <div class="form-check ">
+            <input class="form-check-input" type="checkbox"
+                   @change="e=>setAnswersFont( e.target.checked ? 'element':'')"
+                   :checked="!!answersFont"
+            >
+            <label class="form-check-label">Użyj czcinki pisanej
+              (<span class="written-font">A a B b C c</span>)
+            </label>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -98,6 +124,8 @@ export default {
     ...mapState({
       answers: state=> state.exerciseModule.answers,
       exerciseContent: state=>state.exerciseModule.content,
+      contentFont: state=>state.exerciseModule.contentFont,
+      answersFont: state=>state.exerciseModule.answersFont,
     }),
     ...mapGetters({
       isAnyAnswerOptionCorrect:'exerciseModule/isAnyAnswerOptionCorrect'
@@ -127,8 +155,14 @@ export default {
       addNewAnswer: 'exerciseModule/addNewAnswer',
       deleteAnswer: 'exerciseModule/deleteAnswer',
       setAnswer: 'exerciseModule/setAnswer',
-      setContent: 'exerciseModule/setContent'
+      setContent: 'exerciseModule/setContent',
+      setContentFont: 'exerciseModule/setContentFont',
+      setAnswersFont: 'exerciseModule/setAnswersFont',
     }),
   }
 }
 </script>
+
+<style lang="scss">
+
+</style>
