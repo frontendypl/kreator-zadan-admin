@@ -61,7 +61,7 @@
         <div class="col-2 col--action">
           <button class="btn  c-ExercisesComponent__button"
                   :data-test="exercise.isArchived"
-                  :class="[exercise.isArchived ? 'btn-success':'btn-danger']"
+                  :class="[exercise.isArchived ? 'btn-danger':'btn-success']"
                   :title="exercise.isArchived ? 'Kliknij by zadanie znów było widoczne.':'Ukryj to zadanie. Nie pojawi się do rozwiązywania.'"
                   @click="$emit('switchExercise', {exerciseId:exercise._id, isArchived: !exercise.isArchived})">
             {{exercise.isArchived ? 'Pokaż' : 'Ukryj'}}

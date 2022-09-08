@@ -76,6 +76,10 @@ export default {
     &--multi{
       max-height: 50vh;
       overflow-y: auto;
+
+      img{
+        max-height: calc(45vh - 5rem); // 5rem is about buttons height
+      }
     }
   }
   .activeImage{

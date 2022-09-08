@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
-
+    <PWAPrompt />
     <AppNavbarComponent @logOut="logOut" @removeUser="removeUser" :user="user" :backPathObject="backPathObject"/>
 
     <AppLoaderComponent v-if="loaderActive" />
@@ -13,10 +13,11 @@
 import {mapActions, mapGetters, mapState} from 'vuex'
 import AppLoaderComponent from "@/components/AppLoaderComponent";
 import AppNavbarComponent from "@/components/AppNavbarComponent";
+import PWAPrompt from "@/components/PWAPrompt";
 
 export default {
   name: 'App',
-  components: {AppNavbarComponent, AppLoaderComponent},
+  components: {PWAPrompt, AppNavbarComponent, AppLoaderComponent},
   data(){
     return {
 
