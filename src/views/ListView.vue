@@ -6,7 +6,7 @@
         <div class="col">
           <ListUpdateFormComponent />
         </div>
-        <div class="col-auto">
+        <div class="col-auto" title="Ten kod udostępnij uczniom. Kliknij by przejść do zadań z tej listy.">
           <a :href="`${frontUrl}/#/${activeList.shortCode}`" class="btn btn-dark" target="_blank">{{activeList.shortCode}}</a>
         </div>
       </div>

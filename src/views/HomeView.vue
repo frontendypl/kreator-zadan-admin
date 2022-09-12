@@ -4,7 +4,13 @@
 
       <h4 class="mb-3">
         Witaj, <b>{{ user.email }}</b>, stwórz pierwsze zadania !
-        <a :href="`${frontUrl}/#/${user.shortCode}/listy-zadan`" class="btn btn-dark" target="_blank">{{user.shortCode}}</a>
+        <a :href="`${frontUrl}/#/${user.shortCode}/listy-zadan`"
+           class="btn btn-dark"
+           target="_blank"
+           title="Ten kod możesz udostępnić uczniom. Kliknij by podejrzeć."
+        >
+          {{user.shortCode}}
+        </a>
       </h4>
 
       <ListFormComponent />
