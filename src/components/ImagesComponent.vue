@@ -9,7 +9,7 @@
            :key="image._id"
       >
         <div class="row">
-          <div class="col">
+          <div class="col text-center">
             <img :src="image.url" class="img-fluid" alt="" v-if="image.srcType === 'url' ">
             <img :src="`data:${image.mimetype};base64,${image.src}`" class="img-fluid" :alt="image.originalname"
                  v-if="image.srcType === 'buffer' ">
