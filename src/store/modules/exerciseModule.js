@@ -12,7 +12,6 @@ export default {
                 listId: '',
                 imageId: '',
             },
-            name: 'Nowe Zadanie', //późnej to numerowac od ilosci zadan w danej liscie np "zadanie 1"
             content: '',
             contentFont: '',
             answersFont: '',
@@ -77,14 +76,6 @@ export default {
         /**
          *
          * @param state
-         * @param {string} name
-         */
-        setName(state, name){
-            state.name = name
-        },
-        /**
-         *
-         * @param state
          * @param {string} content
          */
         setContent(state, content){
@@ -109,7 +100,6 @@ export default {
                 listId: '',
                 imageId: '',
             }
-            state.name = 'Nowe Zadanie'
             state.content = ''
             state.answers = [
                 {
@@ -142,14 +132,6 @@ export default {
         /**
          *
          * @param commit
-         * @param {string} name
-         */
-        setName({commit}, name){
-            commit('setName', name)
-        },
-        /**
-         *
-         * @param commit
          * @param {string} content
          */
         setContent({commit}, content){
@@ -170,7 +152,6 @@ export default {
             let exerciseData = {
                 list: state.newExerciseData.listId,
                 image: state.newExerciseData.imageId || null,
-                name: state.name,
                 content: state.content,
                 answers: state.answers,
                 answersFont: state.answersFont,

@@ -71,21 +71,12 @@ export default {
     ...mapState({
       errors: state=> state.exerciseModule.errors,
     }),
-    name:{
-      get(){
-        return this.exerciseName
-      },
-      set(val){
-        this.setName(val)
-      }
-    },
     ...mapState({
       user: state => state.userModule.user,
       exercisesLists: state => state.listModule.exercisesLists,
       listId: state => state.listModule.listId,
       userImages: state => state.imageModule.userImages,
       newExerciseData: state => state.exerciseModule.newExerciseData,
-      exerciseName: state=> state.exerciseModule.name
     }),
     ...mapGetters(
         {
@@ -100,7 +91,6 @@ export default {
       setBackPathObject: 'setBackPathObject',
       getImages: 'imageModule/getImages',
       setNewExerciseData: 'exerciseModule/setNewExerciseData',
-      setName: 'exerciseModule/setName',
       saveExercise: 'exerciseModule/saveExercise',
       resetExercise: 'exerciseModule/resetExercise'
     }),
