@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
-    <PWAPrompt />
+<!--    <PWAPrompt />-->
     <AppNavbarComponent @logOut="logOut" @removeUser="removeUser" :user="user" :backPathObject="backPathObject"/>
 
     <AppLoaderComponent v-if="loaderActive" />
