@@ -39,7 +39,7 @@ export default {
     ...mapGetters(['frontUrl']),
   },
   methods: {
-    ...mapActions(['setLoader']),
+    ...mapActions(['setLoader', 'setBackPathObject']),
     handleForm(){
 
     }
@@ -48,7 +48,7 @@ export default {
 
   },
   mounted(){
-
+    this.setBackPathObject({})
   }
 }
 </script>

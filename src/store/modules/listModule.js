@@ -113,7 +113,7 @@ export default {
                         }}
                 )
                 dispatch('getExercisesLists')
-                await router.push({name:'ExerciseListView',params: {listId: response.data._id}})
+                await router.push({name:'ListView',params: {listId: response.data._id}})
             }catch (e) {
                 commit('setNewExerciseListErrors', e.response.data.errors)
                 dispatch('setLoader',{list: false}, {root: true})

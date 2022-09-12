@@ -48,7 +48,7 @@ export default {
     }
   },
   mounted(){
-    this.setBackPathObject({name: 'ExerciseListView', params: {listId: this.listId}})
+    this.setBackPathObject({name: 'ListView', params: {listId: this.listId}})
     this.interval = setInterval(()=>{
       this.getAnswers()
     },3000)

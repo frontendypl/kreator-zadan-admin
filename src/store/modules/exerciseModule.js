@@ -188,7 +188,7 @@ export default {
                     }
                 )
                 console.log({response})
-                router.push({name: 'ExerciseListView', params: {listId: rootState.listModule.listId}})
+                router.push({name: 'ListView', params: {listId: rootState.listModule.listId}})
                 dispatch('resetExercise')
             }catch (e) {
                 commit('setErrors', e.response.data.errors)

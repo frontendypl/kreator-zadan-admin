@@ -6,7 +6,7 @@
     >
       <div class="col-auto align-self-center fs-3">
         <router-link class="text-decoration-none text-dark"
-                     :to="{name: 'ExerciseListView', params: {listId: list._id}}"
+                     :to="{name: 'ListView', params: {listId: list._id}}"
         >
           <b>{{++i}}. {{list.name}}</b>
         </router-link>
@@ -21,7 +21,7 @@
           kod: {{list.shortCode}}
         </a>
 <!--        <router-link class="btn btn-primary text-light ms-2"-->
-<!--          :to="{name: 'ExerciseListView', params: {listId: list._id}}"-->
+<!--          :to="{name: 'ListView', params: {listId: list._id}}"-->
 <!--        >-->
 <!--          edytuj-->
 <!--        </router-link>-->

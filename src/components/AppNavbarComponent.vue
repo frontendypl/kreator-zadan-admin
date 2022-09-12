@@ -1,32 +1,37 @@
 <template>
   <nav class="c-AppNavbarComponent navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-    <div class="container-fluid">
+    <div class="container">
 <!--      <router-link class="navbar-brand" :to="{name: 'home'}">Start</router-link>-->
+      <div class="logo written-font" v-if="screenWidth>600 || !user._id">
+        <a class="logo__link link-light text-decoration-none" href="https://ucze.net">ucze.net</a>
+      </div>
       <router-link class="btn btn-outline-light me-auto ms-5"
         :to="backPathObject"
-
+        v-if="backPathObject.name"
       >
         Cofnij
       </router-link>
 
-      <button
-          class="btn btn-info"
-          @click="$emit('logOut')"
-          v-if="user._id"
-      >
-        Wyloguj się
-      </button>
-      <button
-          class="btn btn-danger"
-          @click="$emit('removeUser')"
-          v-if="user._id"
-      >
-        Usuń Konto
-      </button>
+      <div>
+        <button
+            class="btn btn-info text-white me-3"
+            @click="$emit('logOut')"
+            v-if="user._id"
+        >
+          Wyloguj się
+        </button>
+        <button
+            class="btn btn-danger"
+            @click="$emit('removeUser')"
+            v-if="user._id"
+        >
+          Usuń Konto
+        </button>
+      </div>
       <router-link
           class="btn btn-success"
           :to="{name: 'AuthLoginView'}"
-          v-else
+          v-if="!user._id && $route.name !== 'AuthRegisterView' && $route.name !== 'AuthLoginView' "
       >
         Zaloguj się
       </router-link>
@@ -46,7 +51,22 @@ export default {
       type: Object,
       required: true
     }
+  },
+  computed: {
+    screenWidth(){
+      return window.outerWidth
+    }
   }
 }
 </script>
 
+<style lang="scss" scoped>
+.c-AppNavbarComponent {
+
+  .logo{
+    &__link {
+      font-size: 2em;
+    }
+  }
+}
+</style>

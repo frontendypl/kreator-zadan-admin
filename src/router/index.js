@@ -4,8 +4,8 @@ import VueRouter from 'vue-router'
 import AuthRegisterView from '@/views/AuthRegisterView'
 import AuthLoginView from "@/views/AuthLoginView";
 import HomeView from "@/views/HomeView";
-import ListDetailsView from "@/views/ListView";
-import ExerciseCreateView from "@/views/ExerciseView";
+import ListView from "@/views/ListView";
+import ExerciseView from "@/views/ExerciseView";
 import PlayerView from "@/views/PlayerView";
 
 Vue.use(VueRouter)
@@ -28,13 +28,13 @@ const routes = [
   },
   {
     path: '/listy-zadan/:listId',
-    name: 'ExerciseListView',
-    component: ListDetailsView
+    name: 'ListView',
+    component: ListView
   },
   {
     path: '/listy-zadan/:listId/dodaj-zadanie',
-    name: 'ExerciseCreateView',
-    component: ExerciseCreateView
+    name: 'ExerciseView',
+    component: ExerciseView
   },
   {
     path: '/listy-zadan/:listId/uczen/:playerId',

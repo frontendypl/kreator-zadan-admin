@@ -123,7 +123,7 @@ export default {
     this.setNewExerciseData({listId: this.$route.params.listId})
   },
   mounted(){
-    this.setBackPathObject({name: 'ExerciseListView', params: {listId: this.listId}})
+    this.setBackPathObject({name: 'ListView', params: {listId: this.listId}})
   },
   beforeDestroy() {
     this.resetExercise()

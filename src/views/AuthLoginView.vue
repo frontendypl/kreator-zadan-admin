@@ -91,7 +91,11 @@ export default {
     ...mapActions({
       setLoginUserForm: 'userModule/setLoginUserForm',
       logIn: 'userModule/logIn',
+      setBackPathObject: 'setBackPathObject'
     }),
+  },
+  mounted(){
+    this.setBackPathObject({})
   }
 }
 </script>

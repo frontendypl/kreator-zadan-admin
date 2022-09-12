@@ -4,7 +4,7 @@
       <div class="row justify-content-center">
         <div class="col-md-6">
           <form class="mx-auto" @submit.prevent="registerUser">
-            <div class="row">
+            <div class="row mb-3">
               <div class="col">
                 <h1>Stwórz konto:</h1>
               </div>
@@ -44,15 +44,15 @@
             </div>
             <div class="row">
               <div class="col">
-                <button class="btn btn-primary text-light btn-lg w-100">
+                <button class="btn btn-primary text-light btn-lg w-100 mb-3">
                   <i class="bi bi-check fs-1"></i>
                 </button>
-                <h2
+                <h3
                     class="text-danger"
                     v-for="(error, key, i) in registerFormErrors"
                     :key="i">
                   {{error.message}}
-                </h2>
+                </h3>
                 <h4>Masz już konto? <router-link :to="{name:'AuthLoginView'}">Zaloguj się</router-link></h4>
               </div>
             </div>
@@ -109,7 +109,11 @@ export default {
     ...mapActions({
       setRegisterUserForm: 'userModule/setRegisterUserForm',
       registerUser: 'userModule/registerUser',
+      setBackPathObject: 'setBackPathObject'
     }),
+  },
+  mounted(){
+    this.setBackPathObject({})
   }
 }
 </script>

@@ -27,7 +27,7 @@ export default new Vuex.Store({
       deleteExercise: false,
     },
     backPathObject: {
-      name: 'Home',
+      name: 'home',
       params: {}
     }
   },
