@@ -15,10 +15,10 @@
     <div v-else>
       <div class="row my-2 c-ExercisesComponent__head-row">
         <div class="col-2">Data</div>
-        <div class="col-2">Nazwa</div>
-        <div class="col-2">Pytanie</div>
+<!--        <div class="col-2">Nazwa</div>-->
+        <div class="col-3">Pytanie</div>
         <div class="col-2">Ilustracja</div>
-        <div class="col-2">Odpowiedzi:</div>
+        <div class="col-3">Odpowiedzi:</div>
         <div class="col-2">Akcje:</div>
       </div>
       <div class="row align-items-center my-2 border-top c-ExercisesComponent__exercise-row"
@@ -33,10 +33,10 @@
             new Date(exercise.createdAt).toLocaleString()
           }}
         </div>
-        <div class="col-2">
-          {{exercise.name}}
-        </div>
-        <div class="col-2" :class="{'written-font': !!exercise.contentFont}">
+<!--        <div class="col-2">-->
+<!--          {{exercise.name}}-->
+<!--        </div>-->
+        <div class="col-3" :class="{'written-font': !!exercise.contentFont}">
           {{exercise.content.length < 200 ? exercise.content : exercise.content.slice(0,200) + '...'}}
         </div>
         <div class="col-2">
@@ -50,7 +50,7 @@
                v-if="exercise.image && exercise.image.srcType === 'buffer' "
           >
         </div>
-        <div class="col-2" :class="{'written-font': !!exercise.answersFont}">
+        <div class="col-3" :class="{'written-font': !!exercise.answersFont}">
           <p v-for="(option, key, index) in exercise.answerOptions"
              :class="{'text-success fw-bold':option.isCorrect}"
              :key="index"

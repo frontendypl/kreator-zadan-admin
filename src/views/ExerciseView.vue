@@ -5,19 +5,6 @@
           <div class="col">
             <h1 class="fw-bold">Tworzenie zadania:</h1>
           </div>
-          <div class="col-auto">
-            <label class="fw-bold">Nazwa</label>
-            <input
-                class="w-100 form-control"
-                :class="{'border-danger': errors.name && !name}"
-                type="text"
-                placeholder="zadanie1"
-                v-model="name"
-            >
-            <div class="col-12" v-if="errors.name && !name">
-              <p class="text-center text-danger fw-bold">{{errors.name.message}}</p>
-            </div>
-          </div>
         </div>
         <div class="row my-3 mb-5" v-if="!usedImage">
           <div class="col">

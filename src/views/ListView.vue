@@ -21,7 +21,7 @@
                 @switchExercise="switchExercise"
 
             >
-              <router-link class="btn btn-success btn-lg" :to="{name: 'ExerciseCreateView'}">
+              <router-link class="btn btn-success btn-lg" :to="{name: 'ExerciseView'}">
                 Stwórz nowe zadanie
               </router-link>
             </ExercisesComponent>
