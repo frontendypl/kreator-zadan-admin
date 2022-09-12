@@ -10,7 +10,7 @@
               type="text"
               class="form-control form-control-lg fs-1"
               :class="{'border-danger': errors.content && content==='', 'written-font': !!contentFont}"
-              placeholder="5 + 5 = __"
+              placeholder=""
               v-model="content"
           ></textarea>
           <div class="row" v-if="errors.content && content===''">
