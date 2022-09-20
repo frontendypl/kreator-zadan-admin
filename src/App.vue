@@ -17,7 +17,12 @@ import PWAPrompt from "@/components/PWAPrompt";
 
 export default {
   name: 'App',
-  components: {PWAPrompt, AppNavbarComponent, AppLoaderComponent},
+  components:
+      {
+        // PWAPrompt,
+        AppNavbarComponent,
+        AppLoaderComponent
+      },
   data(){
     return {
 
@@ -81,6 +86,15 @@ export default {
 <style lang="scss">
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "bootstrap-icons/font/bootstrap-icons.css";
+
+html {
+  @media (max-width: 330px) {
+    font-size: 12px;
+  }
+  @media (max-width: 440px) {
+    font-size: 14px;
+  }
+}
 
 body {
   background-image: url("@/assets/images/background.jpg");

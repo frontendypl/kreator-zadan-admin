@@ -1,6 +1,6 @@
 <template>
   <div class="c-ListsComponent">
-    <div class="row justify-content-between border-bottom"
+    <div class="row justify-content-between border-bottom mb-2"
       v-for="(list,i) in exercisesLists"
          :key="i"
     >
@@ -30,6 +30,15 @@
         >
           usuń
         </button>
+      </div>
+      <div class="col-12 mt-1">
+        <p>
+          <router-link class="text-decoration-none text-dark"
+                       :to="{name: 'ListView', params: {listId: list._id}}"
+          >
+            Kliknij by zobaczyć zadania, uczniów i odpowiedzi dla tej listy zadań !
+          </router-link>
+        </p>
       </div>
     </div>
   </div>

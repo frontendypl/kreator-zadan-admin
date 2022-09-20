@@ -1,13 +1,26 @@
 <template>
-  <div class="v-ListDetailsView w-100 mt-5">
+  <div class="v-ListDetailsView w-100">
     <div class="container" v-if="activeList">
 
-      <div class="row gx-5 my-5">
-        <div class="col">
-          <ListUpdateFormComponent />
+      <div class="row gx-5 gy-2 my-5 justify-content-between">
+        <div class="col-12 col-sm-4 mb-3 text-center" title="Ten kod udostępnij uczniom. Kliknij by przejść do zadań z tej listy.">
+          <div class="row">
+            <div class="col-12">
+              <a :href="`${frontUrl}/#/${activeList.shortCode}`" class="btn btn-dark btn-lg fs-1" target="_blank">{{activeList.shortCode}}</a>
+            </div>
+            <div class="col-12">
+              <b>Kod dostepu do zadań z tej listy.</b>
+            </div>
+            <div class="col-12">
+              <span>Udostępnij swoim uczniom.</span>
+            </div>
+            <div class="col-12">
+              <span class="text-danger">Kliknij i sprawdź.</span>
+            </div>
+          </div>
         </div>
-        <div class="col-auto" title="Ten kod udostępnij uczniom. Kliknij by przejść do zadań z tej listy.">
-          <a :href="`${frontUrl}/#/${activeList.shortCode}`" class="btn btn-dark" target="_blank">{{activeList.shortCode}}</a>
+        <div class="col-12 col-sm-6">
+          <ListUpdateFormComponent />
         </div>
       </div>
 

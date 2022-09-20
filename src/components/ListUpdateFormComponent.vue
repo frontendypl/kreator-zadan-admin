@@ -2,15 +2,17 @@
   <div class="c-ListUpdateFormComponent">
     <form class="mb-4" @submit.prevent="updateListName">
 
-      <div class="row g-1">
-        <div class="col">
-          <input class="form-control fs-3 mb-2" placeholder="Nazwa np: zwierzęta" type="text"
-                 :class="{'border-danger border-3': updateExerciseListErrors.name}"
-                 v-model="listName"
-          >
+      <div class="row">
+        <div class="col-12">
+          <div class="input-group-lg">
+            <input class="form-control mb-2" placeholder="Nazwa np: zwierzęta" type="text"
+                   :class="{'border-danger border-3': updateExerciseListErrors.name}"
+                   v-model="listName"
+            >
+          </div>
         </div>
-        <div class="col-auto">
-          <button class="btn btn-primary text-light fs-3 border-3">
+        <div class="col-12">
+          <button class="btn btn-primary text-light btn-lg w-100">
             zmień nazwę
           </button>
         </div>

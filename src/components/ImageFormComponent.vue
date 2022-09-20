@@ -1,7 +1,7 @@
 <template>
   <div class="c-ExerciseFormComponent row">
     <div class="col-12 mb-3">
-      <h5>Dodaj nowy obrazek/ilustracje/zdjęcie:</h5>
+      <h3 class="fw-bold">Dodaj nowy obrazek/ilustracje/zdjęcie:</h3>
     </div>
     <div class="col-12">
       <label for="fileInput" class="form-label visually-hidden" >Upolad obrazka.</label>

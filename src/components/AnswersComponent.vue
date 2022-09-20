@@ -66,10 +66,10 @@
             </div>
           </div>
         </div>
-        <div class="col-2" :class="{'written-font': !!answer.exercise.answersFont}">
+        <div class="col-2 text-center" :class="{'written-font': !!answer.exercise.answersFont}">
           {{answer.answerOption.text}}
         </div>
-        <div class="col-2" :class="{'written-font': !!answer.exercise.answersFont}">
+        <div class="col-2 text-center" :class="{'written-font': !!answer.exercise.answersFont}">
           {{answer.exercise.answerOptions.find(option=>option.isCorrect).text}}
         </div>
       </div>
