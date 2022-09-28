@@ -3,14 +3,13 @@
     <div class="row">
       <h3 class="c-ExercisesComponent__head">
         Zadania:
-        <slot v-if="exercises.length"/>
+
       </h3>
     </div>
     <div v-if="!exercises.length">
       <p>
-        Brak. Kliknij przycisk bo dodać pierwsze zadanie: <slot />
+        Brak. Kliknij przycisk bo dodać pierwsze zadanie:
       </p>
-
     </div>
     <div v-else>
       <div class="row my-2 c-ExercisesComponent__head-row">
@@ -69,6 +68,8 @@
         </div>
       </div>
     </div>
+    <slot />
+
   </div>
 </template>
 
@@ -100,6 +101,14 @@ export default {
   &__exercise-row,
   &__head-row{
     font-size: 10px;
+
+    @media screen and (min-width: 1000px) {
+      font-size: 16px;
+    }
+    @media screen and (min-width: 1367px) {
+      font-size: 20px;
+    }
+
     &--old{
       opacity: 0.8;
     }
@@ -112,6 +121,14 @@ export default {
 
   &__button{
     font-size: 10px;
+
+    @media screen and (min-width: 1000px) {
+      font-size: 16px;
+    }
+    @media screen and (min-width: 1367px) {
+      font-size: 20px;
+    }
+
     padding: 0.2em 0.5em;
   }
 
@@ -122,25 +139,3 @@ export default {
   }
 }
 </style>
-
-<!--<template>-->
-<!--  <div class="c-ExercisesComponent">-->
-<!--    <h3>Zadania:</h3>-->
-<!--    <div class="row" v-for="(exercise, key, index) in exercises" :key="index">-->
-<!--      <div class="col">-->
-<!--        {{exercise.name}} <button class="btn btn-danger" @click="$emit('deleteExercise', exercise._id)">usuń</button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</template>-->
-
-<!--<script>-->
-<!--export default {-->
-<!--  name: 'ExercisesComponent',-->
-<!--  props: {-->
-<!--    exercises: {-->
-<!--      type: Array-->
-<!--    }-->
-<!--  }-->
-<!--}-->
-<!--</script>-->

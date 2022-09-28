@@ -95,6 +95,15 @@ export default {
   &__item-row,
   &__head-row{
     font-size: 10px;
+    padding: 5px 0;
+
+    @media screen and (min-width: 1000px) {
+      font-size: 16px;
+    }
+    @media screen and (min-width: 1367px) {
+      font-size: 20px;
+    }
+
   }
   &__head-row{
     font-weight: 700;

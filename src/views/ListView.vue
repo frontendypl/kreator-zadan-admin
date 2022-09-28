@@ -32,10 +32,9 @@
                 :exercises="exercises"
                 :userImages="userImages"
                 @switchExercise="switchExercise"
-
             >
-              <router-link class="btn btn-success btn-lg" :to="{name: 'ExerciseView'}">
-                Stwórz nowe zadanie
+              <router-link class="btn btn-success fw-bold btn-lg fs-1" :to="{name: 'ExerciseView'}">
+                + Dodaj zadanie
               </router-link>
             </ExercisesComponent>
           </div>

@@ -106,6 +106,14 @@ export default {
   &__answer-row,
   &__head-row{
     font-size: 10px;
+
+    @media screen and (min-width: 1000px) {
+      font-size: 16px;
+    }
+    @media screen and (min-width: 1367px) {
+      font-size: 20px;
+    }
+
     &--old{
       opacity: 0.8;
     }
