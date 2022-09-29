@@ -127,9 +127,9 @@ export default {
     //   this.$router.push({name: 'Home'})
     // }
 
-    this.getPlayers()
-    this.getExercises()
-    this.getAnswers()
+    this.getPlayers(true)
+    this.getExercises(true)
+    this.getAnswers(true)
   },
   mounted(){
     this.setBackPathObject({name: 'home', params: {}})

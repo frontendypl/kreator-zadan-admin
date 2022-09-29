@@ -28,7 +28,8 @@ export default {
             state.exercisesLists = exercisesLists
         },
         setNewExerciseListErrors(state, payload){
-            state.updateExerciseListErrors = {...payload}
+            console.log('payload',{...payload})
+            state.createNewExerciseListErrors = {...payload}
         },
         /**
          *
@@ -115,6 +116,7 @@ export default {
                 dispatch('getExercisesLists')
                 await router.push({name:'ListView',params: {listId: response.data._id}})
             }catch (e) {
+                console.log('tutaj', e.response.data.errors)
                 commit('setNewExerciseListErrors', e.response.data.errors)
                 dispatch('setLoader',{list: false}, {root: true})
             }

@@ -199,8 +199,12 @@ export default {
         /**
          * get list of exercises
          */
-        async getExercises({state, commit,  rootGetters, rootState}){
+        async getExercises({state, commit, dispatch, rootGetters, rootState},loader=false){
             try{
+                if(loader){
+                    dispatch('setLoader', {getExercises: true}, { root: true })
+                }
+
                 const response = await axios.get(
                     `${rootGetters.apiUrl}/lists/${rootState.listModule.listId}/exercises`,
                     {
@@ -210,8 +214,10 @@ export default {
                     }
                 )
                 commit('getExercises', response.data)
+                dispatch('setLoader', {getExercises: false}, { root: true })
             }catch (e) {
                 console.log(e)
+                dispatch('setLoader', {getExercises: false}, { root: true })
             }
         },
     }

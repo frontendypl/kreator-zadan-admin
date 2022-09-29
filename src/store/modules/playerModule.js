@@ -18,8 +18,11 @@ export default {
         /**
          * get list of players
          */
-        async getPlayers({state, commit,  rootGetters, rootState}){
+        async getPlayers({state, commit, dispatch,  rootGetters, rootState}, loader=false){
             try{
+                if(loader){
+                    dispatch('setLoader', {getPlayers: true}, { root: true })
+                }
                 const response = await axios.get(
                     `${rootGetters.apiUrl}/lists/${rootState.listModule.listId}/players`, //liste przeniesc do listModule
                     {
@@ -29,8 +32,10 @@ export default {
                     }
                 )
                 commit('setPlayers', response.data)
+                dispatch('setLoader', {getPlayers: false}, { root: true })
             }catch (e) {
                 console.log(e)
+                dispatch('setLoader', {getPlayers: false}, { root: true })
             }
         },
         /**
