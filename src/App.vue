@@ -6,6 +6,9 @@
     <AppLoaderComponent v-if="loaderActive" />
 
     <router-view/>
+
+    <AppFooterComponent />
+
   </div>
 </template>
 
@@ -14,11 +17,13 @@ import {mapActions, mapGetters, mapState} from 'vuex'
 import AppLoaderComponent from "@/components/AppLoaderComponent";
 import AppNavbarComponent from "@/components/AppNavbarComponent";
 import PWAPrompt from "@/components/PWAPrompt";
+import AppFooterComponent from "@/components/AppFooterComponent";
 
 export default {
   name: 'App',
   components:
       {
+        AppFooterComponent,
         // PWAPrompt,
         AppNavbarComponent,
         AppLoaderComponent

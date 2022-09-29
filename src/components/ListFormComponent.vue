@@ -4,14 +4,14 @@
 
       <div class="row g-1">
         <div class="col col-md-4">
-          <input class="form-control fs-3 mb-2" placeholder="Nowa lista zadań" type="text"
+          <input class="form-control fs-2 mb-2" placeholder="Nowa lista zadań" type="text"
                  :class="{'border-danger':Object.keys(createNewExerciseListErrors).length}"
                  v-model="newListName"
           >
         </div>
         <div class="col-auto">
-          <button class="btn btn-primary text-light fs-3">
-            +
+          <button class="btn btn-primary text-light fs-2">
+            Dodaj
           </button>
         </div>
         <h4 class="text-danger"
