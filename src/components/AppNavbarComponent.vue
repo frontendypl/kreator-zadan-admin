@@ -22,7 +22,7 @@
         </button>
         <button
             class="btn btn-danger"
-            @click="$emit('removeUser')"
+            @click="$emit('showDeleteUserModel')"
             v-if="user._id"
         >
           Usuń Konto

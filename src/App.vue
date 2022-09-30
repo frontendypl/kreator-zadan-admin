@@ -1,7 +1,18 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
 <!--    <PWAPrompt />-->
-    <AppNavbarComponent @logOut="logOut" @removeUser="removeUser" :user="user" :backPathObject="backPathObject"/>
+    <UserRemoveModalComponent
+        @removeUser="removeUser"
+        @cancel="deleteUserModal = false"
+        v-show="deleteUserModal"
+    />
+
+    <AppNavbarComponent
+        @logOut="logOut"
+        @showDeleteUserModel="deleteUserModal = true"
+        :user="user"
+        :backPathObject="backPathObject"
+    />
 
     <AppLoaderComponent v-if="loaderActive" />
 
@@ -18,11 +29,13 @@ import AppLoaderComponent from "@/components/AppLoaderComponent";
 import AppNavbarComponent from "@/components/AppNavbarComponent";
 import PWAPrompt from "@/components/PWAPrompt";
 import AppFooterComponent from "@/components/AppFooterComponent";
+import UserRemoveModalComponent from "@/components/UserRemoveModalComponent";
 
 export default {
   name: 'App',
   components:
       {
+        UserRemoveModalComponent,
         AppFooterComponent,
         // PWAPrompt,
         AppNavbarComponent,
@@ -30,7 +43,7 @@ export default {
       },
   data(){
     return {
-
+      deleteUserModal: false
     }
   },
   computed: {
@@ -111,6 +124,10 @@ body {
 
 .written-font{
   font-family: 'element';
+}
+
+.c-AppFooterComponent{
+  margin-top: auto;
 }
 
 </style>
