@@ -13,25 +13,41 @@
     </div>
     <div v-else>
       <div class="row my-2 c-ExercisesComponent__head-row">
-        <div class="col-2">Data</div>
+        <div class="col-1"></div>
+        <div class="col-1"></div>
+<!--        <div class="col-2">Data</div>-->
 <!--        <div class="col-2">Nazwa</div>-->
         <div class="col-3">Pytanie</div>
         <div class="col-2">Ilustracja</div>
         <div class="col-3">Odpowiedzi:</div>
-        <div class="col-2">Akcje:</div>
+        <div class="col-2"></div>
       </div>
       <div class="row align-items-center my-2 border-top c-ExercisesComponent__exercise-row"
            v-for="exercise in exercises"
            :class="{'archived' :exercise.isArchived}"
            :key="exercise._id"
       >
-        <div class="col-2"
-        >
-          {{new Date().toLocaleDateString() === new Date(exercise.createdAt).toLocaleDateString() ?
-            new Date(exercise.createdAt).toLocaleTimeString() :
-            new Date(exercise.createdAt).toLocaleString()
-          }}
+        <div class="col-1">
+          {{exercise.order}}
         </div>
+        <div class="col-1 order-column">
+          <i class="bi bi-arrow-up-short"
+             @click="$emit('changeOrder', {direction: 'up', exerciseId: exercise._id, list:exercise.list, order: exercise.order})"
+             v-if="exercise.order !== 1"
+          ></i>
+
+          <i class="bi bi-arrow-down-short"
+             @click="$emit('changeOrder', {direction: 'down', exerciseId: exercise._id, list:exercise.list, order: exercise.order})"
+             v-if="exercise.order < exercises.length"
+          ></i>
+        </div>
+<!--        <div class="col-2"-->
+<!--        >-->
+<!--          {{new Date().toLocaleDateString() === new Date(exercise.createdAt).toLocaleDateString() ?-->
+<!--            new Date(exercise.createdAt).toLocaleTimeString() :-->
+<!--            new Date(exercise.createdAt).toLocaleString()-->
+<!--          }}-->
+<!--        </div>-->
 <!--        <div class="col-2">-->
 <!--          {{exercise.name}}-->
 <!--        </div>-->
@@ -137,5 +153,20 @@ export default {
       opacity: 0.5;
     }
   }
+
+  .order-column{
+      display: flex;
+    flex-direction: column;
+    .bi {
+      font-size: 1.8em;
+      transition: all 0.25s;
+      cursor: pointer;
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
+
 }
 </style>

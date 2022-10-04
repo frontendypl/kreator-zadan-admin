@@ -191,6 +191,31 @@ export default {
             dispatch('getExercises')
             dispatch('setLoader', {deleteExercise: false}, { root: true })
         },
+        /**
+         * up or down exercise order
+         * @param {string} direction
+         * @param {string} exerciseId
+         * @param {string} list
+         * @param {number} order
+         */
+        async changeOrder({dispatch, rootState, rootGetters},{direction,exerciseId, list, order}){
+            console.log({list, order, direction, exerciseId})
+            dispatch('setLoader', {changeOrder: true}, { root: true })
+
+            const response = await axios.patch(`${rootGetters.apiUrl}/exercises/${exerciseId}/order`,{
+                    direction,
+                    list,
+                    order
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${rootState.userModule.user.token}`
+                    }
+                })
+            dispatch('getExercises')
+            dispatch('setLoader', {changeOrder: false}, { root: true })
+
+        },
         resetExercise({commit, dispatch}){
             dispatch('setLoader', {deleteExercise: false}, { root: true })
             commit('resetExercise')

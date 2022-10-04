@@ -27,7 +27,8 @@ export default new Vuex.Store({
       deleteExercise: false,
       getPlayers: false,
       getExercises: false,
-      getAnswers: false
+      getAnswers: false,
+      changeOrder: false
     },
     backPathObject: {
       name: 'home',

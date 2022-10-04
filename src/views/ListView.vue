@@ -32,6 +32,7 @@
                 :exercises="exercises"
                 :userImages="userImages"
                 @switchExercise="switchExercise"
+                @changeOrder="changeOrder"
             >
               <router-link class="btn btn-success fw-bold btn-lg fs-1" :to="{name: 'ExerciseView'}">
                 + Dodaj zadanie
@@ -115,7 +116,8 @@ export default {
       deletePlayer: 'playerModule/deletePlayer',
       getAnswers: 'answerModule/getAnswers',
       getImages: 'imageModule/getImages',
-      setBackPathObject: 'setBackPathObject'
+      setBackPathObject: 'setBackPathObject',
+      changeOrder: 'exerciseModule/changeOrder'
     }),
 
   },
