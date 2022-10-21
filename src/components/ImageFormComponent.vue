@@ -180,6 +180,7 @@ export default {
   .modal {
     background-color: rgba(0,0,0,0.7);
     display: block;
+    z-index: 2;
   }
 
 }

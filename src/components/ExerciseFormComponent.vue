@@ -38,7 +38,7 @@
           <p>Dodaj kilka odpowiedzi. Zaznacz jedną prawidłową.</p>
         </div>
         <div class="col-12 mb-2">
-          <div class="input-group input-group-lg mb-3" v-for="(answer, index) in answers" :key="answer.id">
+          <div class="input-group input-group-lg mb-2" v-for="(answer, index) in answers" :key="answer.id">
             <div class="input-group-text" title="Zaznacz jeśli to prawidłowa odpowiedź">
               <input
                   class="form-check-input mt-0"
@@ -86,7 +86,7 @@
                    @change="e=>setAnswersFont( e.target.checked ? 'element':'')"
                    :checked="!!answersFont"
             >
-            <label class="form-check-label">Użyj czcinki pisanej
+            <label class="form-check-label mb-2">Użyj czcinki pisanej
               (<span class="written-font">A a B b C c</span>)
             </label>
           </div>
