@@ -130,4 +130,8 @@ body {
   margin-top: auto;
 }
 
+.modal {
+  z-index: 3;
+}
+
 </style>
