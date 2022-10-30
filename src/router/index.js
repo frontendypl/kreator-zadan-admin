@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 
 import AuthRegisterView from '@/views/AuthRegisterView'
 import AuthLoginView from "@/views/AuthLoginView";
+import AuthResetPasswordView from "@/views/AuthResetPasswordView";
+import AuthConfirmNewPasswordView from "@/views/AuthConfirmNewPasswordView";
 import HomeView from "@/views/HomeView";
 import ListView from "@/views/ListView";
 import ExerciseView from "@/views/ExerciseView";
@@ -27,6 +29,16 @@ const routes = [
     component: AuthLoginView
   },
   {
+    path: '/zmien-haslo',
+    name: 'AuthResetPasswordView',
+    component: AuthResetPasswordView
+  },
+  {
+    path: '/potwierdz-nowe-haslo/:id',
+    name: 'AuthConfirmNewPasswordView',
+    component: AuthConfirmNewPasswordView
+  },
+  {
     path: '/listy-zadan/:listId',
     name: 'ListView',
     component: ListView
@@ -48,8 +60,9 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next)=>{
-  const publicPages = ['/logowanie', '/rejestracja'];
-  const authRequired = !publicPages.includes(to.path)
+  const publicPages = ['/logowanie', '/rejestracja', '/zmien-haslo'];
+  console.log('test', to.path.indexOf('/potwierdz-nowe-haslo')===-1)
+  const authRequired = !publicPages.includes(to.path) && to.path.indexOf('/potwierdz-nowe-haslo') === -1
   const loggedIn = localStorage.getItem('user');
   if (authRequired && !loggedIn) {
     next({name: 'AuthLoginView'});

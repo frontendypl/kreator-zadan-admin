@@ -22,7 +22,18 @@ export default {
                 password: '',
                 repeatPassword: ''
             },
-            registerFormErrors: {}
+            registerFormErrors: {},
+
+            resetPasswordForm: {
+                email: '',
+                password: '',
+                repeatPassword: ''
+            },
+            resetPasswordErrors: {},
+            resetPasswordConfirmation: '',
+
+            passwordConfirmed: '',
+            passwordConfirmationErrors: {}
 
         }
     },
@@ -52,7 +63,22 @@ export default {
         setRegisterErrors(state, payload){
             state.registerFormErrors = {...payload}
         },
-    },
+
+        setResetPasswordForm(state, payload){
+            state.resetPasswordForm = {...state.resetPasswordForm, ...payload}
+        },
+        setResetPasswordErrors(state, payload){
+            state.resetPasswordErrors = {...payload}
+        },
+        setResetPasswordConfirmation(state, payload){
+            state.resetPasswordConfirmation = payload
+        },
+        setPasswordConfirmedStatus(state, payload){
+            state.passwordConfirmed = payload
+        },
+        setPasswordConfirmationErrors(state, payload){
+            state.passwordConfirmationErrors = {...payload}
+        },    },
     actions: {
         setUser(context, userData){
             context.commit('setUser', userData)
@@ -67,6 +93,9 @@ export default {
         },
         setRegisterUserForm({commit}, payload){
             commit('setRegisterUserForm', payload)
+        },
+        setResetPasswordForm({commit}, payload){
+            commit('setResetPasswordForm', payload)
         },
 
 
@@ -90,6 +119,41 @@ export default {
                 dispatch('setLoader', {form: false}, { root: true })
             }catch (e) {
                 commit('setRegisterErrors', e.response.data.errors)
+                dispatch('setLoader', {form: false}, { root: true })
+            }
+        },
+
+        async resetPassword({state, commit, dispatch, rootState, rootGetters}){
+            try{
+                dispatch('setLoader', {form: true}, { root: true })
+                const response = await axios.post(`${rootGetters.apiUrl}/reset-password`, state.resetPasswordForm)
+                commit('setResetPasswordErrors', {})
+                commit('setResetPasswordConfirmation', response.data.status)
+                dispatch('setLoader', {form: false}, { root: true })
+            }catch (e) {
+                commit('setResetPasswordErrors', e.response.data.errors)
+                dispatch('setLoader', {form: false}, { root: true })
+            }
+        },
+
+        /**
+         * @param {String} resetId
+         */
+        async confirmNewPassword({state, commit, dispatch, rootState, rootGetters}, resetId){
+            try{
+                dispatch('setLoader', {form: true}, { root: true })
+                const response = await axios.post(`${rootGetters.apiUrl}/confirm-new-password`,
+                    {
+                        resetPasswordId: resetId
+                    })
+                commit('setPasswordConfirmedStatus', response.data.status)
+                dispatch('setLoader', {form: false}, { root: true })
+                setTimeout(()=>{
+                    router.push({name:'AuthLoginView'})
+                    location.reload()
+                },2000)
+            }catch (e) {
+                commit('setPasswordConfirmationErrors', e.response.data.errors)
                 dispatch('setLoader', {form: false}, { root: true })
             }
         },

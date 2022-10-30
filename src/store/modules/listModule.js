@@ -84,7 +84,10 @@ export default {
                 commit('getExercisesLists', response.data)
                 dispatch('setLoader',{list: false}, {root: true})
             }catch (e) {
-                console.log(e)
+                if(Object.keys((e.response.data.errors)).includes('auth')){
+                    dispatch('userModule/logOut', null, {root: true})
+                }
+
                 dispatch('setLoader',{list: false}, {root: true})
             }
         },

@@ -43,6 +43,9 @@
                   {{error.message}}
                 </h2>
                 <h4>Nie masz konta? <router-link :to="{name:'AuthRegisterView'}">Zarejestruj się</router-link></h4>
+                <h6>
+                  <router-link :to="{name:'AuthResetPasswordView'}">Zapomniałem hasła</router-link>
+                </h6>
               </div>
             </div>
           </form>
