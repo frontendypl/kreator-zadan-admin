@@ -11,7 +11,9 @@ export default {
             newExerciseData: {
                 listId: '',
                 imageId: '',
+                youtubeId: '',
             },
+            youtubePreviewId: '',
             content: '',
             contentFont: '',
             answersFont: '',
@@ -48,6 +50,9 @@ export default {
                 text: '',
                 isCorrect: false
             })
+        },
+        setYoutubePreviewId(state, payload){
+            state.youtubePreviewId = payload
         },
         /**
          *
@@ -99,7 +104,9 @@ export default {
             state.newExerciseData = {
                 listId: '',
                 imageId: '',
+                youtubeId: '',
             }
+            state.youtubePreviewId = ''
             state.content = ''
             state.answers = [
                 {
@@ -129,6 +136,9 @@ export default {
             }
             commit('setAnswer', payload)
         },
+        setYoutubePreviewId({commit, dispatch}, payload){
+            commit('setYoutubePreviewId', payload)
+        },
         /**
          *
          * @param commit
@@ -152,6 +162,8 @@ export default {
             let exerciseData = {
                 list: state.newExerciseData.listId,
                 image: state.newExerciseData.imageId || null,
+
+                // youtube
                 content: state.content,
                 answers: state.answers,
                 answersFont: state.answersFont,

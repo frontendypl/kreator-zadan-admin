@@ -6,9 +6,31 @@
             <h1 class="fw-bold">Tworzenie zadania:</h1>
           </div>
         </div>
-        <div class="row my-3 mb-5" v-if="!usedImage">
-          <div class="col">
+        <div class="row my-3 mb-5" >
+          <div class="col-12 col-lg-6 mb-4" v-if="!usedImage">
             <ImageFormComponent />
+          </div>
+          <div class="col-12 col-lg-6 mb-4">
+
+            <YoutubeVideoFormComponent v-if="!youtubePreviewId" />
+
+            <iframe
+                v-if="youtubePreviewId"
+                :src="`https://www.youtube.com/embed/${youtubePreviewId}?rel=0`"
+                frameborder="0"
+
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+            >
+            </iframe>
+
+            <button
+                class="btn btn-danger w-25 mt-2"
+                @click="removeVideo(youtubeId)"
+                v-if="youtubePreviewId"
+            >
+              Usuń
+            </button>
           </div>
         </div>
 
@@ -47,8 +69,11 @@
 </template>
 
 <script>
+import fitvids from "fitvids"
+
 /* eslint-disable vue/no-unused-components */
 import ImageFormComponent from "@/components/ImageFormComponent";
+import YoutubeVideoFormComponent from "@/components/YoutubeVideoFormComponent";
 import ImagesComponent from "@/components/ImagesComponent";
 import {mapGetters, mapState, mapActions} from "vuex";
 import ExerciseFormComponent from "@/components/ExerciseFormComponent";
@@ -61,7 +86,7 @@ import ExerciseFormComponent from "@/components/ExerciseFormComponent";
 
 export default {
   name: "ExerciseCreateView",
-  components: {ExerciseFormComponent, ImageFormComponent, ImagesComponent},
+  components: {ExerciseFormComponent, ImageFormComponent,YoutubeVideoFormComponent, ImagesComponent},
 
   data(){
     return {
@@ -77,6 +102,9 @@ export default {
       listId: state => state.listModule.listId,
       userImages: state => state.imageModule.userImages,
       newExerciseData: state => state.exerciseModule.newExerciseData,
+      youtubePreviewId: state => state.exerciseModule.youtubePreviewId,
+      youtubeId: state => state.exerciseModule.newExerciseData.youtubeId,
+
     }),
     ...mapGetters(
         {
@@ -92,8 +120,17 @@ export default {
       getImages: 'imageModule/getImages',
       setNewExerciseData: 'exerciseModule/setNewExerciseData',
       saveExercise: 'exerciseModule/saveExercise',
-      resetExercise: 'exerciseModule/resetExercise'
+      resetExercise: 'exerciseModule/resetExercise',
+      removeVideo: 'youtubeModule/removeVideo'
     }),
+  },
+  watch: {
+    youtubePreviewId(newVal, oldVal) {
+      if(!newVal) return
+      setTimeout(()=>{
+        fitvids()
+      },1)
+    }
   },
   created(){
     // this.getImages()

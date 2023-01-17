@@ -81,7 +81,7 @@ import axios from "axios";
 import {mapGetters, mapState, mapActions} from "vuex";
 
 export default {
-  name: 'ExerciseImageForm',
+  name: 'ImageFormComponent',
   data(){
     return {
       image: '',
