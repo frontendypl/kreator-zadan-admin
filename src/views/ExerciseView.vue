@@ -14,15 +14,17 @@
 
             <YoutubeVideoFormComponent v-if="!youtubePreviewId" />
 
-            <iframe
-                v-if="youtubePreviewId"
-                :src="`https://www.youtube.com/embed/${youtubePreviewId}?rel=0`"
-                frameborder="0"
+            <div v-if="youtubePreviewId">
+              <iframe
+                  :src="`https://www.youtube.com/embed/${youtubePreviewId}?rel=0`"
+                  frameborder="0"
 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-            >
-            </iframe>
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+              >
+              </iframe>
+            </div>
+
 
             <button
                 class="btn btn-danger w-25 mt-2"

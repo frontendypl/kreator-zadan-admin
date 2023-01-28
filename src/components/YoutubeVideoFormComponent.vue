@@ -33,7 +33,9 @@
               <!--              </div>-->
               <div class="col-12">
                 <!--                TODO-->
-                <div id="player" v-if="youtubeVideoId"></div>
+                <div v-if="youtubeVideoId" :key="youtubeVideoId">
+                  <div id="player"></div>
+                </div>
                 <!--                <iframe-->
                 <!--                    v-if="youtubeVideoId"-->
                 <!--                    style="max-width: 100%"-->
