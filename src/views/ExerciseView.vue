@@ -16,9 +16,8 @@
 
             <div v-if="youtubePreviewId">
               <iframe
-                  :src="`https://www.youtube.com/embed/${youtubePreviewId}?rel=0`"
+                  :src="`https://www.youtube.com/embed/${youtubePreviewId.ytId}?start=${youtubePreviewId.startTime}&end=${youtubePreviewId.endTime}`"
                   frameborder="0"
-
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowfullscreen
               >
@@ -127,11 +126,14 @@ export default {
     }),
   },
   watch: {
-    youtubePreviewId(newVal, oldVal) {
-      if(!newVal) return
-      setTimeout(()=>{
-        fitvids()
-      },1)
+    youtubePreviewId: {
+      handler(newVal, oldVal) {
+        if(!newVal) return
+        setTimeout(()=>{
+          fitvids()
+        },1)
+      },
+      deep: true
     }
   },
   created(){

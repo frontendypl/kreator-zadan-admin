@@ -314,7 +314,7 @@ export default {
             {youtubeId: response.data._id}
         )
         this.showVideoForm = false
-        this.setYoutubePreviewId(this.youtubeVideoId)
+        this.setYoutubePreviewId({...response.data})
       }catch (e) {
         console.log(e)
         this.errors = {...e.response.data.errors}
