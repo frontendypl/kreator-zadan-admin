@@ -33,7 +33,7 @@
               <!--              </div>-->
               <div class="col-12">
                 <!--                TODO-->
-                <div id="player"></div>
+                <div id="player" v-if="youtubeVideoId"></div>
                 <!--                <iframe-->
                 <!--                    v-if="youtubeVideoId"-->
                 <!--                    style="max-width: 100%"-->
@@ -233,12 +233,12 @@ export default {
     return {
       url: '',
       errors: {},
-      showVideoForm: true,
+      showVideoForm: false,
       player: null,
       playerStatus: null,
       playerStatusInterval: null,
       isYTReady: false,
-      fullMovie: false,
+      fullMovie: true,
       startTime: {
         h: 0,
         m: 0,
@@ -362,7 +362,7 @@ export default {
     },
     onPlayerReady(evt) {
       console.log("Player ready");
-      this.getPlayerStatus()
+
       fitvids()
       // evt.target.playVideo();
 
@@ -384,14 +384,19 @@ export default {
     resetErrors(){
       this.errors = {}
     },
+    resetStatus(){
+      this.playerStatus = null;
+      this.playerStatusInterval= null;
+    },
     reInitPlayer(){
       if(!this.youtubeVideoId) return false
       this.player.destroy()
       this.initYoutube()
     },
     getPlayerStatus(){
+      if(! this.youtubeVideoId) return false
       this.playerStatusInterval = setInterval(()=>{
-
+        console.log('i')
           this.playerStatus = this.player.getPlayerState()
 
         if(this.playerStatus === 0 ){
@@ -404,22 +409,32 @@ export default {
   },
   watch: {
     showVideoForm(newVal, oldVal) {
+      console.log({newVal, oldVal})
       if(newVal){
-
       }
 
       if(oldVal){
         this.url = ''
         this.resetErrors()
         this.resetTimeForm()
-
+        clearInterval(this.playerStatusInterval)
+        this.resetStatus()
       }
 
     },
 
     youtubeVideoId(newVal, oldVal) {
-      if(this.isYTReady && this.youtubeVideoId)
-        this.initYoutube()
+      if(this.isYTReady && this.youtubeVideoId){
+
+        setTimeout(()=>{
+          this.initYoutube()
+        },1)
+
+        if(newVal){
+          this.getPlayerStatus()
+        }
+
+      }
     },
     fullMovie(){
       this.resetTimeForm()

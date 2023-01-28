@@ -4,7 +4,7 @@ import {filter} from "core-js/internals/array-iteration";
 
 export default {
     namespaced: true,
-    state(){
+    state() {
         return {
             exercises: [],
             errors: {},
@@ -30,28 +30,28 @@ export default {
         usedImage(state, getters, rootState, rootGetters) {
             return rootState.imageModule.userImages.filter(image => image._id === state.newExerciseData.imageId)[0]
         },
-        isAnyAnswerOptionCorrect(state){
-            return !!state.answers.find(answer=> answer.isCorrect)
+        isAnyAnswerOptionCorrect(state) {
+            return !!state.answers.find(answer => answer.isCorrect)
         },
         activeExercises(state) {
-            return state.exercises.filter(exercise=>!exercise.isArchived)
+            return state.exercises.filter(exercise => !exercise.isArchived)
         }
     },
     mutations: {
-        getExercises(state, payload){
-          state.exercises = payload
+        getExercises(state, payload) {
+            state.exercises = payload
         },
-        setNewExerciseData(state, payload){
+        setNewExerciseData(state, payload) {
             state.newExerciseData = {...state.newExerciseData, ...payload}
         },
-        addNewAnswer(state){
+        addNewAnswer(state) {
             state.answers.push({
                 id: Date.now(),
                 text: '',
                 isCorrect: false
             })
         },
-        setYoutubePreviewId(state, payload){
+        setYoutubePreviewId(state, payload) {
             state.youtubePreviewId = payload
         },
         /**
@@ -59,22 +59,22 @@ export default {
          * @param state
          * @param {number} id
          */
-        deleteAnswer(state, id){
-            state.answers = state.answers.filter(answer=>answer.id !== id)
+        deleteAnswer(state, id) {
+            state.answers = state.answers.filter(answer => answer.id !== id)
         },
         /**
          *
          * @param state
          * @param {{id: number, text: string}} payload
          */
-        setAnswer(state, payload){
-            let answer = state.answers.find(answer=>answer.id === payload.id)
-            for(const key in payload){
+        setAnswer(state, payload) {
+            let answer = state.answers.find(answer => answer.id === payload.id)
+            for (const key in payload) {
                 answer[key] = payload[key]
             }
         },
-        clearIsCorrectProperties(state){
-            state.answers.forEach(answer=>{
+        clearIsCorrectProperties(state) {
+            state.answers.forEach(answer => {
                 answer.isCorrect = false
             })
         },
@@ -83,14 +83,14 @@ export default {
          * @param state
          * @param {string} content
          */
-        setContent(state, content){
+        setContent(state, content) {
             state.content = content
         },
 
-        setContentFont(state, font){
+        setContentFont(state, font) {
             state.contentFont = font
         },
-        setAnswersFont(state, font){
+        setAnswersFont(state, font) {
             state.answersFont = font
         },
 
@@ -121,22 +121,22 @@ export default {
     },
 
     actions: {
-        addNewAnswer({commit}){
+        addNewAnswer({commit}) {
             commit('addNewAnswer')
         },
-        deleteAnswer({commit}, id){
+        deleteAnswer({commit}, id) {
             commit('deleteAnswer', id)
         },
-        setNewExerciseData({commit},payload){
+        setNewExerciseData({commit}, payload) {
             commit('setNewExerciseData', payload)
         },
-        setAnswer({commit, dispatch}, payload){
-            if(payload.isCorrect){
+        setAnswer({commit, dispatch}, payload) {
+            if (payload.isCorrect) {
                 commit('clearIsCorrectProperties')
             }
             commit('setAnswer', payload)
         },
-        setYoutubePreviewId({commit, dispatch}, payload){
+        setYoutubePreviewId({commit, dispatch}, payload) {
             commit('setYoutubePreviewId', payload)
         },
         /**
@@ -144,33 +144,32 @@ export default {
          * @param commit
          * @param {string} content
          */
-        setContent({commit}, content){
+        setContent({commit}, content) {
             commit('setContent', content)
         },
 
-        setContentFont({commit}, font){
+        setContentFont({commit}, font) {
             commit('setContentFont', font)
         },
-        setAnswersFont({commit}, font){
+        setAnswersFont({commit}, font) {
             commit('setAnswersFont', font)
         },
 
-        async saveExercise({commit,dispatch,state,rootGetters,rootState }){
+        async saveExercise({commit, dispatch, state, rootGetters, rootState}) {
             // wyświetlić błędy
             // zrobic przekierowanie lub komunikat z linkami "dodano pomyślnie, kliknij by dodać następne lub wróć do widoku listy"
             // loadery ustawiać
             let exerciseData = {
                 list: state.newExerciseData.listId,
                 image: state.newExerciseData.imageId || null,
-
-                // youtube
+                youtubeVideo: state.newExerciseData.youtubeId,
                 content: state.content,
                 answers: state.answers,
                 answersFont: state.answersFont,
                 contentFont: state.contentFont
             }
 
-            try{
+            try {
                 const response = await axios.post(
                     `${rootGetters.apiUrl}/exercises`,
                     exerciseData,
@@ -183,25 +182,25 @@ export default {
                 console.log({response})
                 router.push({name: 'ListView', params: {listId: rootState.listModule.listId}})
                 dispatch('resetExercise')
-            }catch (e) {
+            } catch (e) {
                 commit('setErrors', e.response.data.errors)
             }
         },
-        async switchExercise({dispatch, rootState, rootGetters}, {exerciseId, isArchived}){
+        async switchExercise({dispatch, rootState, rootGetters}, {exerciseId, isArchived}) {
             console.log(exerciseId, isArchived)
-            dispatch('setLoader', {deleteExercise: true}, { root: true })
-            const response = await axios.patch(`${rootGetters.apiUrl}/exercises/${exerciseId}`,{
-                exerciseId,
-                isArchived
+            dispatch('setLoader', {deleteExercise: true}, {root: true})
+            const response = await axios.patch(`${rootGetters.apiUrl}/exercises/${exerciseId}`, {
+                    exerciseId,
+                    isArchived
                 },
 
                 {
-                headers: {
-                    'Authorization': `Bearer ${rootState.userModule.user.token}`
-                }
-            })
+                    headers: {
+                        'Authorization': `Bearer ${rootState.userModule.user.token}`
+                    }
+                })
             dispatch('getExercises')
-            dispatch('setLoader', {deleteExercise: false}, { root: true })
+            dispatch('setLoader', {deleteExercise: false}, {root: true})
         },
         /**
          * up or down exercise order
@@ -210,11 +209,11 @@ export default {
          * @param {string} list
          * @param {number} order
          */
-        async changeOrder({dispatch, rootState, rootGetters},{direction,exerciseId, list, order}){
+        async changeOrder({dispatch, rootState, rootGetters}, {direction, exerciseId, list, order}) {
             console.log({list, order, direction, exerciseId})
-            dispatch('setLoader', {changeOrder: true}, { root: true })
+            dispatch('setLoader', {changeOrder: true}, {root: true})
 
-            const response = await axios.patch(`${rootGetters.apiUrl}/exercises/${exerciseId}/order`,{
+            const response = await axios.patch(`${rootGetters.apiUrl}/exercises/${exerciseId}/order`, {
                     direction,
                     list,
                     order
@@ -225,21 +224,21 @@ export default {
                     }
                 })
             dispatch('getExercises')
-            dispatch('setLoader', {changeOrder: false}, { root: true })
+            dispatch('setLoader', {changeOrder: false}, {root: true})
 
         },
-        resetExercise({commit, dispatch}){
-            dispatch('setLoader', {deleteExercise: false}, { root: true })
+        resetExercise({commit, dispatch}) {
+            dispatch('setLoader', {deleteExercise: false}, {root: true})
             commit('resetExercise')
         },
 
         /**
          * get list of exercises
          */
-        async getExercises({state, commit, dispatch, rootGetters, rootState},loader=false){
-            try{
-                if(loader){
-                    dispatch('setLoader', {getExercises: true}, { root: true })
+        async getExercises({state, commit, dispatch, rootGetters, rootState}, loader = false) {
+            try {
+                if (loader) {
+                    dispatch('setLoader', {getExercises: true}, {root: true})
                 }
 
                 const response = await axios.get(
@@ -251,10 +250,10 @@ export default {
                     }
                 )
                 commit('getExercises', response.data)
-                dispatch('setLoader', {getExercises: false}, { root: true })
-            }catch (e) {
+                dispatch('setLoader', {getExercises: false}, {root: true})
+            } catch (e) {
                 console.log(e)
-                dispatch('setLoader', {getExercises: false}, { root: true })
+                dispatch('setLoader', {getExercises: false}, {root: true})
             }
         },
     }
