@@ -64,6 +64,15 @@
               <img :src="`data:${image.mimetype};base64,${image.src}`" class="img-fluid" :alt="image.originalname"
                    v-if="image.srcType === 'buffer' ">
             </div>
+            <div class="p-1" v-if="answer.exercise.youtubeVideo?.ytId">
+              <iframe
+                  :src="`https://www.youtube.com/embed/${answer.exercise.youtubeVideo.ytId}?start=${answer.exercise.youtubeVideo.startTime}&end=${answer.exercise.youtubeVideo.endTime}`"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+              >
+              </iframe>
+            </div>
           </div>
         </div>
         <div class="col-2 text-center" :class="{'written-font': !!answer.exercise.answersFont}">

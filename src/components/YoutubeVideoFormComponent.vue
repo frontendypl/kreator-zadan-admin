@@ -324,21 +324,21 @@ export default {
     },
 
     //  TODO
-    addYtScript(){
-      // 2. This code loads the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-      this.isYTReady = true
-      // window.onYouTubeIframeAPIReady = () => {
-      //   this.isYTReady = true
-      // };
-    },
+    // addYtScript(){
+    //   // 2. This code loads the IFrame Player API code asynchronously.
+    //   var tag = document.createElement('script');
+    //
+    //   tag.src = "https://www.youtube.com/iframe_api";
+    //   var firstScriptTag = document.getElementsByTagName('script')[0];
+    //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    //
+    //   // 3. This function creates an <iframe> (and YouTube player)
+    //   //    after the API code downloads.
+    //   this.isYTReady = true
+    //   // window.onYouTubeIframeAPIReady = () => {
+    //   //   this.isYTReady = true
+    //   // };
+    // },
     initYoutube() {
 
       if(!this.youtubeVideoId) return false
@@ -426,7 +426,7 @@ export default {
     },
 
     youtubeVideoId(newVal, oldVal) {
-      if(this.isYTReady && this.youtubeVideoId){
+      if(this.youtubeVideoId){
 
         setTimeout(()=>{
           this.initYoutube()
@@ -453,7 +453,7 @@ export default {
   created(){},
   mounted(){
 
-    this.addYtScript()
+    // this.addYtScript()
 
   },
   beforeDestroy(){

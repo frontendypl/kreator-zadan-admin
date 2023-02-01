@@ -64,7 +64,13 @@ export default {
       getExercisesLists: 'listModule/getExercisesLists',
       setListId: 'listModule/setListId',
       getImages: 'imageModule/getImages'
-    })
+    }),
+    initYoutube(){
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
   },
   watch: {
     user: {
@@ -96,7 +102,7 @@ export default {
     this.setListId(this.$route.params['listId'])
   },
   mounted(){
-
+    this.initYoutube()
   }
 }
 </script>

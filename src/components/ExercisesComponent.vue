@@ -18,7 +18,7 @@
 <!--        <div class="col-2">Data</div>-->
 <!--        <div class="col-2">Nazwa</div>-->
         <div class="col-3">Pytanie</div>
-        <div class="col-2">Ilustracja</div>
+        <div class="col-2">Media</div>
         <div class="col-3">Odpowiedzi:</div>
         <div class="col-2"></div>
       </div>
@@ -64,6 +64,15 @@
                :alt="exercise.image.originalname"
                v-if="exercise.image && exercise.image.srcType === 'buffer' "
           >
+          <div class="p-1" v-if="exercise.youtubeVideo?.ytId">
+            <iframe
+                :src="`https://www.youtube.com/embed/${exercise.youtubeVideo.ytId}?start=${exercise.youtubeVideo.startTime}&end=${exercise.youtubeVideo.endTime}`"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+            >
+            </iframe>
+          </div>
         </div>
         <div class="col-3" :class="{'written-font': !!exercise.answersFont}">
           <p v-for="(option, key, index) in exercise.answerOptions"
@@ -90,6 +99,8 @@
 </template>
 
 <script>
+import fitvids from "fitvids"
+
 export default {
   name: 'ExercisesComponent',
   data(){
@@ -106,6 +117,13 @@ export default {
   },
   methods:{
 
+  },
+  watch: {
+    exercises(){
+      setTimeout(()=>{
+        fitvids()
+      },10)
+    }
   }
 }
 </script>
