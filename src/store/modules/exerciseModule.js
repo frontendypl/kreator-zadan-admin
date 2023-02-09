@@ -162,7 +162,7 @@ export default {
             let exerciseData = {
                 list: state.newExerciseData.listId,
                 image: state.newExerciseData.imageId || null,
-                youtubeVideo: state.newExerciseData.youtubeId,
+                youtubeVideo: state.newExerciseData.youtubeId || null,
                 content: state.content,
                 answers: state.answers,
                 answersFont: state.answersFont,
